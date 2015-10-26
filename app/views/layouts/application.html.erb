@@ -5,16 +5,18 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
-  <%= analytics_init if Rails.env.production? %>
+	<%= analytics_init if Rails.env.production? %>
+
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css'>
 </head>
 <body>
 
 <%= yield %>
 <!--
 <ul class="hmenu">
-  <%= render 'devise/menu/registration_items' %>
-  <%= render 'devise/menu/login_items' %>
+  <%#= render 'devise/menu/registration_items' %>
+  <%#= render 'devise/menu/login_items' %>
 </ul>
+-->
 </body>
 </html>
--->
