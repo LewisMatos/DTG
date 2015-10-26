@@ -1,1 +1,77 @@
-<h1> hey </h1>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @event.title %>
+</p>
+
+<p>
+  <strong>Venue:</strong>
+  <%= @event.venue %>
+</p>
+
+<p>
+  <strong>Street number:</strong>
+  <%= @event.street_number %>
+</p>
+<p>
+  <strong>Street name:</strong>
+  <%= @event.street_name%>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @event.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @event.state %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @event.zip %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @event.description %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @event.cost%>
+</p>
+
+<p>
+  <strong>Tickets:</strong>
+  <%= @event.tickets%>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @event.url %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @event.image %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @event.category %>
+</p>
+
+  <% if !@match && @user %>
+    <%= link_to "Right", "/events/#{@event.id}/users/#{@user.id}/tinder/yes", method: :post %>
+    <%= link_to "Left", "/events/#{@event.id}/users/#{@user.id}/tinder/no", method: :post %><br>
+    <%= link_to "#{@user.name}", "/users/#{@user.id}" %><br>
+  <% elsif @user %>
+    <h3>You are matched with <%=@user.name%>!</h3>
+  <% end %>
+<%= image_tag(@user_image) %><br>
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>
+

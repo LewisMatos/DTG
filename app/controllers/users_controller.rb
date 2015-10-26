@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :my_events]
 
   # GET /users
   # GET /users.json
@@ -59,6 +59,16 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def my_events
+    # lists the events the user has pinned.
+  end
+
+  def tinder
+    # when a user 'swipes right' or 'left', this will add a new row to the user_events table with the info. and redirect to the event they came from.
+    UserEvent.create( user_id: current_user.id, event_id: params["event_id"].to_i, shown_user_id: params["user_id"].to_i, liked: "#{params["selection"]}")
+    redirect_to "/events/#{params["event_id"].to_i}"
   end
 
   private

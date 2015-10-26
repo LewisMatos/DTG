@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20151020210016) do
     t.string   "url"
     t.string   "image"
     t.string   "category"
-    t.string   "date"
+    t.date     "date"
     t.string   "time"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
@@ -47,14 +47,19 @@ ActiveRecord::Schema.define(version: 20151020210016) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "email",                  default: ""
-    t.string   "encrypted_password",     default: "", null: false
+    t.integer  "age"
+    t.string   "gender"
+    t.string   "image"
+    t.string   "cover"
+    t.boolean  "real",                   default: false, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"

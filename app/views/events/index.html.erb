@@ -14,6 +14,9 @@
 
       <a href="events/<%=event.id%>" class="event-link" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a>   
           <!-- iterate over each event, adding image to page that links to its page -->
+
+          <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %> 
+
           
           <!-- <div class="homepage-event-box"> -->
             <!-- <img class="homepage-event-image" src="<%=event.image%>"> -->

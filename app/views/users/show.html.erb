@@ -1,9 +1,44 @@
 <p id="notice"><%= notice %></p>
 
+<div id="userimage">
+	<% if @user.real %>
+		<%= image_tag(@user.image + "?type=large") %>
+	<% else %>
+	<%= image_tag(@user.image[66..-1])%>
+<% end %>
+</div>
+
 <p>
   <strong>Name:</strong>
   <%= @user.name %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @user.gender %>
+</p>
+
+<%= link_to 'My Events', "/users/#{@user.id}/events" %>
+
+<div class="container-fluid">
+  <div class="row">
+    <% @user.events.order("date").each do |event| %>
+      <div class="col-md-6">
+          <!-- iterate over each event, adding image to page that links to its page -->
+          <%= link_to image_tag(event.image[8..-1], :class => "homepage-event-image"), event %>
+          <%= link_to 'Remove Event', "/events/#{event.id}/unpin_event" %>
+          
+          <!-- <div class="homepage-event-box"> -->
+            <!-- <img class="homepage-event-image" src="<%=event.image%>"> -->
+          <!-- </div>   -->
+      </div>
+    <% end %>
+  </div>
+<%#= link_to 'Edit', edit_user_path(@user) %> |
+<%#= link_to 'Back', users_path %>
+
