@@ -1,4 +1,7 @@
-    <style>
+// Place all the styles related to the Dashboards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
     * {
     transition: all 500ms ease-out;
     -webkit-transition: all 500ms ease-out;
@@ -128,7 +131,7 @@ a {
   text-decoration: none;
   font-family: open sans, sans-serif;
 }
-  
+
 .title, .hint {
   font-family: open sans, sans-serif;
   display: block;
@@ -217,68 +220,3 @@ a {
 
 
 
-
-   </style>
-
-
-  <div class="ct" id="t1">
-    <div class="ct" id="t2">
-      <div class="ct" id="t3">
-        <div class="ct" id="t4">
-
-
-          <section>  
-             <!-- Left navigaiton bar. Icons that use anchors to pull in page into view (#t2 = Events page) -->
-             <ul>
-
-               <ul class="hmenu">
-                <%= render 'devise/menu/registration_items' %>
-                <%= render 'devise/menu/login_items' %>
-               </ul>
-
-               <a href="#t1"><li class="icon fa fa-home" id="uno"><span class="hint"> Home </span></li></a>
-               <a href="#t2"><li class="icon fa fa-thumb-tack" id="dos"><span class="hint"> Events </span></li></a>
-               <a href="#t3"><li class="icon fa fa-comments" id="tres"><span class="hint"> Messages </span></li></a>
-             </ul>
-                
-                <!-- Home Page -->
-                <div class="page" id="p1">
-                   <li class="icon fa fa-home"><span class="title">Home<span class="hint" style="color:red;"> You haven't selected any events</span></span></li>
-                  <!--  <% current_user.events.uniq.each do |event| %> 
-                    <div class="col-md-4 homepage-event-image"> 
-                            <a href="/events/<%=event.id%>" class="event-link" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a> 
-                            <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %>   
-                          </div>
-                    <% end %>   -->
-                </div>
-  
-                <!-- Events Page -->
-                <div class="page" id="p2">
-                 <div class="container-fluid">
-                  <h1> Events </h1>
-                    <%=@events.order("date").each_slice(3) do |event_row| %>
-                      <div class="row">
-                        <% event_row.each do |event| %>
-                          <div class="col-md-4 homepage-event-image"> 
-                            <a href="/events/<%=event.id%>" class="event-link" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a> 
-                            <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %>   
-                          </div>
-                        <% end %>
-                      </div>
-                    <%end%>
-                  </div>
-                </div>  
-  
-                <!-- Messages Page --> 
-                <div class="page" id="p3">
-                  <li class="icon fa fa-comments"><span class="title">Hotline Bling</span></li>
-                </div> 
-                
-                <!-- Footer -->
-                <p class="credit"> &copy; Down 2 Go <a href="https://downtogo.com/">Made in Brooklyn</a></p>
-          </section>
-       
-        </div>
-      </div>
-    </div>
-  </div>
