@@ -5,22 +5,13 @@
 
 
 <div class="container-fluid">
-
   <%=@events.order("date").each_slice(3) do |event_row| %>
-
-  <div class="row">
-    <% event_row.each do |event| %>
-     <div class="col-md-4 homepage-event-image"> 
-
-      <a href="events/<%=event.id%>" class="event-link" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a>   
-          <!-- iterate over each event, adding image to page that links to its page -->
-          
-          <!-- <div class="homepage-event-box"> -->
-            <!-- <img class="homepage-event-image" src="<%=event.image%>"> -->
-          <!-- </div>   -->
-      </div>
-    <% end %>
-
-  </div>
+    <div class="row">
+      <% event_row.each do |event| %>
+        <div class="col-md-4 homepage-event-image"> 
+            <a href="events/<%=event.id%>" class="event-link" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a>   
+        </div>
+      <% end %>
+    </div>
   <%end%>
-  </div>
+</div>

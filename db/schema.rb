@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20151020210016) do
     t.string   "url"
     t.string   "image"
     t.string   "category"
-    t.string   "date"
+    t.date     "date"
     t.string   "time"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
