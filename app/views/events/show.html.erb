@@ -70,7 +70,7 @@
     <%= image_tag(@user_image) %>
     <%= link_to "Right", "/events/#{@event.id}/users/#{@shown_user[0].id}/tinder/yes", method: :post %><br>
     <%= link_to "#{@shown_user[0].name}", "/users/#{@shown_user[0].id}" %><br>
-  <% elsif @user %>
+  <% elsif @shown_user %>
     <h3>You are matched with <%=@shown_user[0].name%>!</h3>
     <%= image_tag(@shown_user_image) %><br>
   <% else %>
