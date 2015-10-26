@@ -72,6 +72,8 @@
   <% elsif @user %>
     <h3>You are matched with <%=@user.name%>!</h3>
     <%= image_tag(@user_image) %><br>
+  <% else %>
+    <p><%=@message%></p>
   <% end %>
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
