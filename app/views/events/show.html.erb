@@ -62,12 +62,12 @@
   <strong>Category:</strong>
   <%= @event.category %>
 </p>
-<%= link_to 'Pin Event', "/events/#{@event.id}/pin_event" %> 
+<%= link_to 'Pin Event', "/events/#{@event.id}/pin_event" %> <br>
 
 
   <% if @shown_user && !@shown_user[1] %>
     <%= link_to "Left", "/events/#{@event.id}/users/#{@shown_user[0].id}/tinder/no", method: :post %>
-    <%= image_tag(@user_image) %>
+    <%= image_tag(@shown_user_image) %>
     <%= link_to "Right", "/events/#{@event.id}/users/#{@shown_user[0].id}/tinder/yes", method: :post %><br>
     <%= link_to "#{@shown_user[0].name}", "/users/#{@shown_user[0].id}" %><br>
   <% elsif @shown_user %>
