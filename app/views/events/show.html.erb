@@ -64,16 +64,14 @@
   <%= @event.category %>
 </p>
 
-<% @tinder.each do |user| %>
-  <% user = User.find(user.id) %>
-  <% if user.real %>
-    <%= image_tag(user.image + "?type=large") %>
-  <% else %>
-  <%= image_tag(user.image[66..-1])%>
-<% end %>
-  <%= link_to "Right", "/events/#{@event.id}/users/#{user.id}/tinder" %><br>
-  <%= link_to "#{user.name}", "/users/#{user.id}" %><br>
-<% end %>
+  <% if !@match && @user %>
+    <%= link_to "Right", "/events/#{@event.id}/users/#{@user.id}/tinder/yes", method: :post %>
+    <%= link_to "Left", "/events/#{@event.id}/users/#{@user.id}/tinder/no", method: :post %><br>
+    <%= link_to "#{@user.name}", "/users/#{@user.id}" %><br>
+  <% elsif @user %>
+    <h3>You are matched with <%=@user.name%>!</h3>
+  <% end %>
+<%= image_tag(@user_image) %><br>
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
 

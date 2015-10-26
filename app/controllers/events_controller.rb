@@ -16,10 +16,10 @@ class EventsController < ApplicationController
   # it will then filter out the same gender as you (should be change dto reflect your sexual preference)
   # and will only find the users who have pinned this event.
   my_matched_folk = %Q(
-    SELECT * FROM users WHERE users.id NOT IN 
+    SELECT * FROM users WHERE users.id IN 
     (SELECT also_likes_me.user_id FROM user_events INNER JOIN user_events AS also_likes_me
-      ON user_events.user_id = also_likes_me.shown_user_id
-      AND also_likes_me.liked = 'yes' AND also_likes_me.event_id = #{@event.id}
+      ON user_events.user_id = also_likes_me.shown_user_id 
+      AND also_likes_me.liked = 'yes' AND also_likes_me.event_id = #{@event.id} AND user_events.event_id = #{@event.id}
       WHERE user_events.user_id = #{current_user.id} AND user_events.liked = 'yes' AND user_events.event_id = #{@event.id}) AND users.gender != "#{current_user.gender}" AND users.id IN (SELECT user_events.user_id FROM user_events 
       WHERE user_events.event_id = #{@event.id})
     )
@@ -34,10 +34,27 @@ class EventsController < ApplicationController
     )
   
   # this will run the query to filter out likes and dislikes and pass it to the show page as @tinder
-  @tinder = User.find_by_sql(folk_i_liked)
+  tinder = User.find_by_sql(folk_i_liked)
 
   # this will run the query to find your matches
-  @matches = User.find_by_sql(my_matched_folk)
+  matches = User.find_by_sql(my_matched_folk) 
+
+
+  if matches.length > 0
+    @user = matches.first
+    @match = true
+  else
+    if tinder.length > 0
+       @user = tinder.first
+     end
+   end
+  if @user
+    if @user.real
+      @user_image = @user.image + "?type=large"
+    else
+      @user_image = @user.image[66..-1]
+    end
+  end
 
   end
 
