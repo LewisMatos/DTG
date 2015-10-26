@@ -33,21 +33,23 @@ class EventsController < ApplicationController
       WHERE user_events.event_id = #{@event.id})
     )
   
-  # this will run the query to filter out likes and dislikes and pass it to the show page as @tinder
+  # this will run the query to filter out likes and dislikes.
   tinder = User.find_by_sql(folk_i_liked)
 
   # this will run the query to find your matches
   matches = User.find_by_sql(my_matched_folk) 
 
-
+  # checks if there is a match. if so it will assign the @user variable to the match.
   if matches.length > 0
     @user = matches.first
     @match = true
+  # if there is no match we will check if there are any users that you have not liked/disliked yet, if so will assign to @user.
   else
     if tinder.length > 0
        @user = tinder.first
      end
    end
+  # will create a image var for the user, based on whether it's a facebook user, or our fake users. it uses a model method called .real. 
   if @user
     if @user.real
       @user_image = @user.image + "?type=large"
