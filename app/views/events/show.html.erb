@@ -58,11 +58,12 @@
   <strong>Image:</strong>
   <%= @event.image %>
 </p>
-
 <p>
   <strong>Category:</strong>
   <%= @event.category %>
 </p>
+<%= link_to 'Pin Event', "/events/#{@event.id}/pin_event" %> 
+
 
   <% if !@match && @user %>
     <%= link_to "Left", "/events/#{@event.id}/users/#{@user.id}/tinder/no", method: :post %>
