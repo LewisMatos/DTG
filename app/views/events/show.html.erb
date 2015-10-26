@@ -65,13 +65,14 @@
 </p>
 
   <% if !@match && @user %>
-    <%= link_to "Right", "/events/#{@event.id}/users/#{@user.id}/tinder/yes", method: :post %>
-    <%= link_to "Left", "/events/#{@event.id}/users/#{@user.id}/tinder/no", method: :post %><br>
+    <%= link_to "Left", "/events/#{@event.id}/users/#{@user.id}/tinder/no", method: :post %>
+    <%= image_tag(@user_image) %>
+    <%= link_to "Right", "/events/#{@event.id}/users/#{@user.id}/tinder/yes", method: :post %><br>
     <%= link_to "#{@user.name}", "/users/#{@user.id}" %><br>
   <% elsif @user %>
     <h3>You are matched with <%=@user.name%>!</h3>
+    <%= image_tag(@user_image) %><br>
   <% end %>
-<%= image_tag(@user_image) %><br>
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
 
