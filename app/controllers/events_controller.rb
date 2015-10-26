@@ -12,11 +12,11 @@ class EventsController < ApplicationController
   def show
 
     if current_user.events.include?(@event)
-      @user = User.get_user(current_user)
+      @user = User.get_user(@event, current_user)
       if !@user
         @message = "There are no Users to display at this time."
       else
-        @user_image = User.user_image(current_user)
+        @user_image = @user.user_image
       end
     else
         @message = "Please pin event to continue."
