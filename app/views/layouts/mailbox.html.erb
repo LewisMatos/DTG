@@ -7,11 +7,15 @@
   <%= csrf_meta_tags %>
 	<%= analytics_init if Rails.env.production? %>
 </head>
-<body>
+	<body>
+		<div class="layout-nav">
+			<%= render 'layouts/nav' %>
+		</div>
 
-<%= render 'layouts/nav' %>
-<%= render partial: 'mailbox/folder_view' %>
-
+		<div class="folder_view">
+			<%= render partial: 'mailbox/folder_view' %>
+	 </div>
+	 
 <div class="container">
 <%= yield %>
 </div>
