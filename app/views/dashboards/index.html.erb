@@ -48,6 +48,22 @@ section {
 }
 
 
+/*added*/
+#event-page-style {
+  padding-right: 150px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 ul {
  position: fixed; 
  z-index: 1;
@@ -203,8 +219,12 @@ a {
 
 .event-link {
   display: block;
-  height: 300px;
-  width: 100%;
+  height: 250px;
+  width: 250px;
+  -webkit-transition: -webkit-transform .15s linear;
+  -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+  -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);-webkit-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+  -moz-box-shadow: 0 3px 6px rgba(0,0,0,.5);
 }
 
 .somelogo {
@@ -263,14 +283,16 @@ a {
   
                 <!-- Events Page -->
                 <div class="page" id="p2">
-                <div class="container-fluid">
+                <div class="container-fluid" id="event-page-style">
                  <!-- iterate through slices of 3 of events, create modals -->
                     <%=@events.order("date").each_slice(3) do |event_row| %>
                       <div class="row">
                         <% event_row.each do |event| %>
                           <div class="col-md-4 homepage-event-image"> 
                           <!-- image is a clickable link to modal of single event page -->
-                            <a href="#" class="event-link" data-toggle="modal" data-target="#basicModal" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a> 
+                            <a href="#" class="event-link event-image" data-toggle="modal" data-target="#basicModal" 
+                            style="background: url(<%=event.image%>) center no-repeat; background-size: contain;  background-size: 250px 250px;
+                            "> </a> 
                                   <!-- Modal -->
                               <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                                 <div class="modal-dialog">
