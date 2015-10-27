@@ -73,3 +73,5 @@ gem 'therubyracer'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'mailboxer'
+gem 'chosen-rails'
+gem "compass-rails" 

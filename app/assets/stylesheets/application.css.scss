@@ -13,6 +13,7 @@
  *= require_tree ../../../vendor/assets/stylesheets/.
  *= require_tree .
  *= require_self
+ *= require chosen
  //= require dashboards
  //= require landing-page
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.eot"
