@@ -1,10 +1,4 @@
-<html>
-  <head>
-    <!-- Icons & Fonts -->
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css'>
-
     <style>
-
     * {
     transition: all 500ms ease-out;
     -webkit-transition: all 500ms ease-out;
@@ -19,8 +13,8 @@ html, body, section, .page {
   -webkit-transition: all 1s cubic-bezier(.5, -0.005, 0.2, 1) !important;
   color: #fff;
   background: black; /* Home background color */
-  overflow-x:hidden;
-  overflow-y:scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 section {
@@ -134,7 +128,7 @@ a {
   text-decoration: none;
   font-family: open sans, sans-serif;
 }
-
+  
 .title, .hint {
   font-family: open sans, sans-serif;
   display: block;
@@ -200,7 +194,7 @@ a {
 }
 
 .credit a {
-  color: #fff
+  color: #fff;
 }
 
 .homepage-event-image { 
@@ -227,10 +221,11 @@ a {
 .one-event-image {
 }
 
-</style>
 
-</head>
-<body>
+
+
+   </style>
+
 
   <div class="ct" id="t1">
     <div class="ct" id="t2">
@@ -253,9 +248,16 @@ a {
              </ul>
                 
                 <!-- Home Page -->
+
                 <div class="page home-page-background" id="p1">
                   <div class="container-fluid">
-                   <li class="icon fa fa-home"><span class="title">Home<span class="hint" style="color:red;"> You haven't selected any events</span></span></li>   
+                     <li class="icon fa fa-home"><span class="title">Home<span class="hint" style="color:red;"> You haven't selected any events</span></span></li>
+                  <!--  <% current_user.events.uniq.each do |event| %> 
+                    <div class="col-md-4 homepage-event-image"> 
+                            <a href="/events/<%=event.id%>" class="event-link" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a> 
+                            <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %>   
+                          </div>
+                    <% end %>   -->
                   </div>
                 </div>
   
@@ -309,5 +311,3 @@ a {
       </div>
     </div>
   </div>
-</body>
-</html>

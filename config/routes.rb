@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  
+	root 'landing_pages#index'
+
   get 'dashboards/index'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
