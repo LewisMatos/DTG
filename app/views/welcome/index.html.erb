@@ -1,2 +1,7 @@
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+<%= render 'layouts/nav' %>
+
+<% flash.each do |key, value| %>
+    <div class="text-center <%= flash_class(key) %>">
+      <%= value %>
+    </div>
+<% end %>

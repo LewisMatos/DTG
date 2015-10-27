@@ -5,6 +5,16 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
 				 :omniauthable, :omniauth_providers => [:facebook]
 
+  acts_as_messageable 
+
+  def mailboxer_name
+    self.name
+  end
+
+  def mailboxer_email(object)
+    self.email
+  end 
+
 	def self.from_omniauth(auth)
 		where(provider: auth.provider, uid: auth.uid.to_s).first_or_create do |user|
 	        user.provider = auth.provider
