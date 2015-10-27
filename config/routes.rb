@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'welcome/index'
+
 	root 'dashboards#index'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
