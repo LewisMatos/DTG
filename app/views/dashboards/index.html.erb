@@ -40,7 +40,7 @@ section {
 */
 
 #p1 {
-  left: 0;
+  left: 10%;
 }
 
 #p2 {
@@ -218,6 +218,12 @@ a {
   margin: 0;
 }
 
+.home-page-background {
+  background:url('/assets/dtglogo2.jpg')
+  center no-repeat;
+  background-size: cover;
+}
+
 .one-event-image {
 }
 
@@ -247,19 +253,41 @@ a {
              </ul>
                 
                 <!-- Home Page -->
-                <div class="page" id="p1">
+                <div class="page home-page-background" id="p1">
+                  <div class="container-fluid">
                    <li class="icon fa fa-home"><span class="title">Home<span class="hint" style="color:red;"> You haven't selected any events</span></span></li>   
+                  </div>
                 </div>
   
                 <!-- Events Page -->
                 <div class="page" id="p2">
-                 <div class="container-fluid">
-                  <h1> Events </h1>
+                <div class="container-fluid">
+                 <!-- iterate through slices of 3 of events, create modals -->
                     <%=@events.order("date").each_slice(3) do |event_row| %>
                       <div class="row">
                         <% event_row.each do |event| %>
                           <div class="col-md-4 homepage-event-image"> 
-                            <a href="/events/<%=event.id%>" class="event-link" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a> 
+                          <!-- image is a clickable link to modal of single event page -->
+                            <a href="#" class="event-link" data-toggle="modal" data-target="#basicModal" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a> 
+                                  <!-- Modal -->
+                              <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                      <h4 class="modal-title" id="myModalLabel">Basic Modal</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <h3>Modal Body</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div> 
+
                             <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %>   
                           </div>
                         <% end %>
