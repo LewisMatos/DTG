@@ -16,6 +16,22 @@ class ConversationsController < ApplicationController
     conversation.mark_as_read(current_user)
   end
 
+  def reply
+    current_user.reply_to_conversation(conversation, message_params[:body])
+    flash[:notice] = "Your reply message was successfully sent!"
+    redirect_to conversation_path(conversation)
+  end
+
+    def trash
+    conversation.move_to_trash(current_user)
+    redirect_to mailbox_inbox_path
+  end
+
+  def untrash
+    conversation.untrash(current_user)
+    redirect_to mailbox_inbox_path
+  end
+
   private
 
   def conversation_params
