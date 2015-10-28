@@ -1,7 +1,7 @@
     <style>
     * {
-    transition: all 500ms ease-out;
-    -webkit-transition: all 500ms ease-out;
+    transition: all 200ms ease-out;
+    -webkit-transition: all 200ms ease-out;
 }
 
 html, body, section, .page {
@@ -52,17 +52,6 @@ section {
 #event-page-style {
   padding-right: 150px;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 ul {
  position: fixed; 
@@ -242,8 +231,6 @@ a {
 }
 
 
-
-
    </style>
 
 
@@ -254,7 +241,7 @@ a {
 
 
           <section>  
-             <!-- Left navigaiton bar. Icons that use anchors to pull in page into view (#t2 = Events page) -->
+             <!-- Left navigation bar. Icons that use anchors to pull in page into view (#t2 = Events page) -->
              <ul>
 
                <ul class="hmenu">
@@ -271,13 +258,12 @@ a {
 
                 <div class="page home-page-background" id="p1">
                   <div class="container-fluid">
-                     <li class="icon fa fa-home"><span class="title">Home<span class="hint" style="color:red;"> You haven't selected any events</span></span></li>
-                  <!--  <% current_user.events.uniq.each do |event| %> 
-                    <div class="col-md-4 homepage-event-image"> 
-                            <a href="/events/<%=event.id%>" class="event-link" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a> 
-                            <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %>   
-                          </div>
-                    <% end %>   -->
+                     <li class="icon fa fa-home"><span class="title">Home<span class="hint" style="color:red;"> 
+
+
+
+                     </span></span></li>
+
                   </div>
                 </div>
   
@@ -290,27 +276,49 @@ a {
                         <% event_row.each do |event| %>
                           <div class="col-md-4 homepage-event-image"> 
                           <!-- image is a clickable link to modal of single event page -->
-                            <a href="#" class="event-link event-image" data-toggle="modal" data-target="#basicModal" 
-                            style="background: url(<%=event.image%>) center no-repeat; background-size: contain;  background-size: 250px 250px;
-                            "> </a> 
+                            <a href="#" class="event-link event-image" data-toggle="modal" data-target="#largeModal" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;  background-size: 250px 250px;"> </a> 
+                                                              
                                   <!-- Modal -->
-                              <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                <div class="modal-dialog">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                      <h4 class="modal-title" id="myModalLabel">Basic Modal</h4>
+                            <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true" data-backdrop="false" style="height:600px;">
+                              <div class="modal-dialog modal-lg" style="height:600px; padding-right:20%;">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title">Modal title</h4>
+                              </div>
+
+
+                                <div class="modal-content" style="height:600px;">
+                                  <div class="modal-body" style="height:600px;">
+
+                                    <div class="row modal-image">
+                                      <div class="col-md-6 container-fluid" style="background: url(<%=event.image%>) center no-repeat; background-size: 250px 250px; height:300px;">
+                                      </div>
+                                      <div class="col-md-6 container-fluid" style="background-size: 250px 250px; height:300px;">
+                                        <% if @shown_user && !@shown_user[1] %>
+                                        <%= link_to "Left", "/events/#{@event.id}/users/#{@shown_user[0].id}/tinder/no", method: :post %>
+                                        <%= image_tag(@shown_user_image) %>
+                                        <%= link_to "Right", "/events/#{@event.id}/users/#{@shown_user[0].id}/tinder/yes", method: :post %><br>
+                                        <%= link_to "#{@shown_user[0].name}", "/users/#{@shown_user[0].id}" %><br>
+                                        <% elsif @shown_user %>
+                                          <h3>You are matched with <%=@shown_user[0].name%>!</h3>
+                                        <%= image_tag(@shown_user_image) %><br>
+                                        <% else %>
+                                        <p><%=@message%></p>
+                                        <% end %>
+                                      </div>                                      
                                     </div>
-                                    <div class="modal-body">
-                                      <h3>Modal Body</h3>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                      <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
+                                    <div class="row modal-image">
+                                      <div class="col-md-6 container-fluid" style="background: url(<%=event.image%>) center no-repeat; background-size: 250px 250px; height:300px;">
+                                      </div>
+                                      <div class="col-md-6 container-fluid" style="background: url(<%=event.image%>) center no-repeat; background-size: 250px 250px; height:300px;">
+                                      </div>                                      
+                                    </div>                                    
                                   </div>
                                 </div>
-                              </div> 
+                              </div>
+                            </div>                              
+
+                            <!-- end modal -->
 
                             <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %>   
                           </div>

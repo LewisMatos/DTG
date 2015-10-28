@@ -58,6 +58,8 @@ class User < ActiveRecord::Base
 		end
 	end
 
+
+
 	def user_image
 		if self.real
         self.image + "?type=large"
