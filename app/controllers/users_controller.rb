@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :my_events, :sexual_pref]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :my_events, :interested_in]
 
   # GET /users
   # GET /users.json
@@ -71,9 +71,9 @@ class UsersController < ApplicationController
     redirect_to "/events/#{params["event_id"].to_i}"
   end
 
-  def sexual_pref
-    binding.pry
-    @user.update(sexual_pref: '')
+  def interested_in
+    @user.update(interested_in: params["interested_in"])
+    redirect_to '/dashboards/index'
   end
 
   private

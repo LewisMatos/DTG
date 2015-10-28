@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
 		if self.real
         self.image + "?type=large"
       else
-        self.image[66..-1]
+        self.image
       end
   end
 
