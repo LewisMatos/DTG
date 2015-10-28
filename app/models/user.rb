@@ -24,12 +24,7 @@ class User < ActiveRecord::Base
   	# and will only find the users who have pinned this event.
 	def find_match(event)
 		sequel = %Q(
-	    	SELECT * FROM users WHERE users.id IN 
-	    	(SELECT also_likes_me.user_id FROM user_events INNER JOIN user_events AS also_likes_me
-	      	ON user_events.user_id = also_likes_me.shown_user_id 
-	      	AND also_likes_me.liked = 'yes' AND also_likes_me.event_id = #{event.id} AND user_events.event_id = #{event.id}
-	      	WHERE user_events.user_id = #{self.id} AND user_events.liked = 'yes' AND user_events.event_id = #{event.id}) AND users.gender != "#{self.gender}" AND users.id IN (SELECT user_events.user_id FROM user_events 
-	     	WHERE user_events.event_id = #{event.id})
+	    	select * from users where users.id in (select user_events.shown_user_id from user_events inner join user_events as shown_user_events on user_events.user_id = #{self.id} and shown_user_events.shown_user_id = #{self.id} and user_events.shown_user_id = shown_user_events.user_id where user_events.event_id = #{event.id} AND shown_user_events.event_id = #{event.id} and user_events.liked = 'yes' AND shown_user_events.liked = 'yes')
     	)
 		User.find_by_sql(sequel)
 	end
@@ -52,7 +47,7 @@ class User < ActiveRecord::Base
 		if @match.length > 0
 			[@match.first, true]
 		elsif  @swiped.length > 0
-			[@swiped.first, false]
+			[@swiped.sample, false]
 		else
 			nil
 		end
