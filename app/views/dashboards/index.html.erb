@@ -250,13 +250,19 @@ a {
                 <!-- Home Page -->
 
                 <div class="page home-page-background" id="p1">
-                  <div class="container-fluid">
-                  <!--  <% current_user.events.uniq.each do |event| %> 
+									<div class="container-fluid">
+										<%- if devise_mapping.omniauthable? %>
+  									<%- resource_class.omniauth_providers.each do |provider| %>
+    								<%= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %><br />
+  									<% end -%>
+										<% end -%>
+										
+										<!--  <%# current_user.events.uniq.each do |event| %> 
                     <div class="col-md-4 homepage-event-image"> 
-                            <a href="/events/<%=event.id%>" class="event-link" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a> 
-                            <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %>   
+                            <a href="/events/<%#=event.id%>" class="event-link" style="background: url(<%#=event.image%>) center no-repeat; background-size: contain;"> </a> 
+                            <%#= link_to 'Pin Event', "/events/#{event.id}/pin_event" %>   
                           </div>
-                    <% end %>   -->
+                    <%# end %>   -->
                   </div>
                 </div>
   
@@ -280,7 +286,7 @@ a {
                                     </div>
                                     <div class="modal-body">
                                       <h3>Modal Body</h3>
-                                    </div>
+																		</div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                       <button type="button" class="btn btn-primary">Save changes</button>

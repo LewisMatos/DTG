@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-
+before_action :auth_user
   def new
   end
 
