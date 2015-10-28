@@ -25,6 +25,14 @@ section {
   position: absolute;
 }
 
+#inside {
+  width: 85%;
+  height: 150%;
+  margin-left: 2.5%;
+  margin-top: 20px;
+  background-color: deeppink;
+}
+
 
 /* 
 > Position and background color of individual pages
@@ -35,16 +43,19 @@ section {
 
 #p1 {
   left: 10%;
+  position:fixed;
 }
 
 #p2 {
   left: 100%;
   background: white;
+  position:fixed;
 }
 
 #p3 {
   left: 200%;
   background: #ffd006;
+  position:fixed;
 }
 
 
@@ -293,7 +304,9 @@ a {
   
                 <!-- Messages Page --> 
                 <div class="page" id="p3">
-                  <li class="icon fa fa-comments"><span class="title">Hotline Bling</span></li>
+                  <div class="inside">
+                  <%= render partial: 'mailbox/folder_view', locals: { is_conversation: false, messages: @inbox } %>
+                  </div>
                 </div> 
                 
                 <!-- Footer -->
