@@ -22,17 +22,13 @@ section {
 }
 
 .page {
-  position: absolute;
+	position: absolute;
 }
 
-#inside {
-  width: 85%;
-  height: 150%;
-  margin-left: 2.5%;
-  margin-top: 20px;
-  background-color: deeppink;
+.inside{
+	display: inline-block;
 }
-
+/* close commented backslash hack */
 
 /* 
 > Position and background color of individual pages
@@ -255,7 +251,6 @@ a {
 
                 <div class="page home-page-background" id="p1">
                   <div class="container-fluid">
-                     <li class="icon fa fa-home"><span class="title">Home<span class="hint" style="color:red;"> You haven't selected any events</span></span></li>
                   <!--  <% current_user.events.uniq.each do |event| %> 
                     <div class="col-md-4 homepage-event-image"> 
                             <a href="/events/<%=event.id%>" class="event-link" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a> 
@@ -305,8 +300,12 @@ a {
                 <!-- Messages Page --> 
                 <div class="page" id="p3">
                   <div class="inside">
-                  <%= render partial: 'mailbox/folder_view', locals: { is_conversation: false, messages: @inbox } %>
-                  </div>
+  <div>
+    <iframe src="/mailbox/inbox.html" name="targetframe" allowTransparency="true" scrolling="no" frameborder="0" width="1400" height="800">
+    </iframe>
+  </div>
+
+									</div>
                 </div> 
                 
                 <!-- Footer -->
