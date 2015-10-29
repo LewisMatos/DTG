@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 #  before_action :authenticate_user!
   #before_action :auth_user
   
-	helper_method :mailbox, :conversationi,:resource_name, :resource, :devise_mapping, :auth_user
+	helper_method :mailbox, :conversation,:resource_name, :resource, :devise_mapping, :auth_user
 
 	private
 
