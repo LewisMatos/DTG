@@ -37,15 +37,15 @@ section {
 > p3 = Messages
 */
 
-#p1 {
+#p1  {
   left: 10%;
   position:fixed;
 }
 
 #p2 {
   left: 100%;
-  background: white;
-  position:fixed;
+	background: #ffd006;
+	position:fixed;
 }
 
 #p3 {
@@ -59,7 +59,7 @@ ul {
  position: fixed; 
  z-index: 1;
 }
-#t1:target .page#p1 {
+#t1:target .page#p1  {
     transform: translateX(0);
 }
 #t2:target .page#p2 {
@@ -70,6 +70,15 @@ ul {
 }
 
 /* Background color during page transitions */
+#t2:target .facebook,
+#t3:target .facebook{
+background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
 #t2:target .page#p1, 
 #t3:target .page#p1 {
   background: black;
@@ -158,7 +167,7 @@ a {
   color: #FFF;
 }
 
-.page .icon {
+.page .icon  {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -179,6 +188,8 @@ a {
 
 .page#p1 .icon {
   transform: translateX(0) !important;
+	transition-delay: 1s;
+
 }
 
 #t2:target .page#p2 .icon {
@@ -311,7 +322,6 @@ a {
                 <!-- Home Page -->	
 									<div class="page home-page-background" id="p1">
 									<div class="container-fluid">
-
 								<!-- facebook login -->
 										<%- if devise_mapping.omniauthable? && !user_signed_in?%>
   									<%- resource_class.omniauth_providers.each do |provider| %>
