@@ -22,9 +22,13 @@ section {
 }
 
 .page {
-  position: absolute;
+	position: absolute;
 }
 
+.inside{
+	display: inline-block;
+}
+/* close commented backslash hack */
 
 /* 
 > Position and background color of individual pages
@@ -33,18 +37,21 @@ section {
 > p3 = Messages
 */
 
-#p1 {
+#p1  {
   left: 10%;
+  position:fixed;
 }
 
 #p2 {
   left: 100%;
-  background: white;
+	background: #ffd006;
+	position:fixed;
 }
 
 #p3 {
   left: 200%;
   background: #ffd006;
+  position:fixed;
 }
 
 
@@ -52,7 +59,7 @@ ul {
  position: fixed; 
  z-index: 1;
 }
-#t1:target .page#p1 {
+#t1:target .page#p1  {
     transform: translateX(0);
 }
 #t2:target .page#p2 {
@@ -63,6 +70,15 @@ ul {
 }
 
 /* Background color during page transitions */
+#t2:target .facebook,
+#t3:target .facebook{
+background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
 #t2:target .page#p1, 
 #t3:target .page#p1 {
   background: black;
@@ -151,7 +167,7 @@ a {
   color: #FFF;
 }
 
-.page .icon {
+.page .icon  {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -172,6 +188,8 @@ a {
 
 .page#p1 .icon {
   transform: translateX(0) !important;
+	transition-delay: 1s;
+
 }
 
 #t2:target .page#p2 .icon {
@@ -213,13 +231,74 @@ a {
 }
 
 .home-page-background {
-  background:url('/assets/dtglogo2.jpg')
+  background:url('/assets/dtglogo3.jpg')
   center no-repeat;
   background-size: cover;
 }
 
 .one-event-image {
 }
+
+.facebook{
+  font-family: Roboto;
+  height: 150px;
+  padding-top: 15vh;
+	color: #F7FAFF;
+	padding-top: 650px;
+	padding-right: 250px;
+}
+.facebook .spacer {
+  margin-bottom: 5px;
+}
+.facebook .title {
+  font-size: 20px;
+}
+
+.btn.btn-facebook {
+  position: relative;
+  color: #F7FAFF;
+  text-indent: 35px;
+  border-color: #263961;
+  background-color: #4c70ba;
+  background-image: linear-gradient(to bottom, transparent 0%, #3b5998 65%, #263961 100%);
+}
+.btn.btn-facebook:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 35px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-right: 1px solid rgba(76, 112, 186, 0.6);
+  background-color: #263961;
+  background-image: url(https://dl.dropboxusercontent.com/u/48498161/codepen/RNVdYg/facebook-logo.svg);
+  background-size: auto 75%;
+  background-position: 65% bottom;
+  background-repeat: no-repeat;
+}
+.btn.btn-facebook:hover {
+  background-color: #263961;
+  background-image: linear-gradient(to bottom, #4c70ba 0%, #3b5998 50%, transparent 100%);
+}
+.btn.btn-facebook.btn-ocd:before {
+  background-position: 50%;
+}
+.btn.btn-facebook:active, .btn.btn-facebook:focus {
+  outline: none;
+}
+.btn.btn-facebook.btn-xl {
+  text-indent: 60px;
+}
+.btn.btn-facebook.btn-xl:before {
+  width: 60px;
+}
+.btn-xl {
+    padding: 18px 28px;
+    font-size: 30px; //change this to your desired size
+    line-height: normal;
+}
+
 </style>
   <div class="ct" id="t1">
     <div class="ct" id="t2">
@@ -240,20 +319,28 @@ a {
                <a href="#t3"><li class="icon fa fa-comments" id="tres"><span class="hint"> Messages </span></li></a>
              </ul>
                 
-                <!-- Home Page -->
-
-                <div class="page home-page-background" id="p1">
-                  <div class="container-fluid">
-                     <li class="icon fa fa-home"><span class="title">Home<span class="hint" style="color:red;"> You haven't selected any events</span></span></li>
-                  <!--  <% current_user.events.uniq.each do |event| %> 
-                    <div class="col-md-4 homepage-event-image"> 
-                            <a href="/events/<%=event.id%>" class="event-link" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a> 
-                            <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %>   
-                          </div>
-                    <% end %>   -->
+                <!-- Home Page -->	
+									<div class="page home-page-background" id="p1">
+									<div class="container-fluid">
+								<!-- facebook login -->
+										<%- if devise_mapping.omniauthable? && !user_signed_in?%>
+  									<%- resource_class.omniauth_providers.each do |provider| %>
+											<%#= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %>
+								<%= link_to omniauth_authorize_path(resource_name,provider) do%>
+										<div class="facebook text-center">
+  									<div class="spacer"><i class="fa fa-facebook btn btn-xl btn-facebook">Login with Facebook</i></div>
+										</div>
+						
+										<% end %>
+										<% end %>
+										<% end %>
+										<!-- facebook login end -->	
                   </div>
                 </div>
-  
+
+
+
+
                 <!-- Events Page -->
                 <div class="page" id="p2">
                 <div class="container-fluid">
@@ -274,7 +361,7 @@ a {
                                     </div>
                                     <div class="modal-body">
                                       <h3>Modal Body</h3>
-                                    </div>
+																		</div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                       <button type="button" class="btn btn-primary">Save changes</button>
@@ -293,7 +380,13 @@ a {
   
                 <!-- Messages Page --> 
                 <div class="page" id="p3">
-                  <li class="icon fa fa-comments"><span class="title">Hotline Bling</span></li>
+                  <div class="inside">
+  <div>
+    <iframe src="/mailbox/inbox.html" name="targetframe" allowTransparency="true" scrolling="no" frameborder="0" width="1400" height="800">
+    </iframe>
+  </div>
+
+									</div>
                 </div> 
                 
                 <!-- Footer -->
