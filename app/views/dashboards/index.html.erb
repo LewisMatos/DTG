@@ -277,7 +277,7 @@ a {
   outline: none;
 }
 .btn.btn-facebook.btn-xl {
-  text-indent: 43px;
+  text-indent: 60px;
 }
 .btn.btn-facebook.btn-xl:before {
   width: 60px;
@@ -286,9 +286,6 @@ a {
     padding: 18px 28px;
     font-size: 30px; //change this to your desired size
     line-height: normal;
-    -webkit-border-radius: 8px;
-       -moz-border-radius: 8px;
-            border-radius: 8px;
 }
 
 </style>
@@ -311,34 +308,29 @@ a {
                <a href="#t3"><li class="icon fa fa-comments" id="tres"><span class="hint"> Messages </span></li></a>
              </ul>
                 
-                <!-- Home Page -->
+                <!-- Home Page -->	
+									<div class="page home-page-background" id="p1">
+									<div class="container-fluid">
 
-									
-							
-
+								<!-- facebook login -->
 										<%- if devise_mapping.omniauthable? && !user_signed_in?%>
   									<%- resource_class.omniauth_providers.each do |provider| %>
 											<%#= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %>
 								<%= link_to omniauth_authorize_path(resource_name,provider) do%>
-								<div class="page home-page-background" id="p1">
-									<div class="container-fluid">
 										<div class="facebook text-center">
   									<div class="spacer"><i class="fa fa-facebook btn btn-xl btn-facebook">Login with Facebook</i></div>
 										</div>
 						
-							<%end %>
 										<% end %>
 										<% end %>
-										
-										<!--  <%# current_user.events.uniq.each do |event| %> 
-                    <div class="col-md-4 homepage-event-image"> 
-                            <a href="/events/<%#=event.id%>" class="event-link" style="background: url(<%#=event.image%>) center no-repeat; background-size: contain;"> </a> 
-                            <%#= link_to 'Pin Event', "/events/#{event.id}/pin_event" %>   
-                          </div>
-                    <%# end %>   -->
+										<% end %>
+										<!-- facebook login end -->	
                   </div>
                 </div>
-  
+
+
+
+
                 <!-- Events Page -->
                 <div class="page" id="p2">
                 <div class="container-fluid">
