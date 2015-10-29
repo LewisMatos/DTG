@@ -320,10 +320,10 @@ body.modal-open,
                         <% event_row.each do |event| %>
                           <div class="col-md-4 homepage-event-image"> 
                           <!-- image is a clickable link to modal of single event page -->
-                            <a href="#" class="event-link event-image" data-toggle="modal" data-target="#largeModal" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;  background-size: 250px 250px;"> </a> 
+                            <a href="#" class="event-link event-image" data-toggle="modal" data-target="#largeModal<%=event.id%>" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;  background-size: 250px 250px;"> </a> 
                                                               
                                   <!-- Modal -->
-                            <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" data-width="760">
+                            <div class="modal fade" id="largeModal<%=event.id%>" tabindex="-1" role="dialog" data-width="760">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                 <h4 class="modal-title modal-event-title"><%=event.title%></h4>
