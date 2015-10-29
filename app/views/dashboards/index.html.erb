@@ -337,26 +337,46 @@ body.modal-open,
                                       <!-- Tinder in modal -->
                                       <div class="col-md-6 container-fluid" style="background-size: 250px 250px; height:300px; color:black;">
                                         <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %> <br>   
+
 <%    if current_user && current_user.events.include?(event) %>
 <%      @shown_user = current_user.get_user(event)   %>
-<%      if !@shown_user %>
-<%        @message = "There are no Users to display at this time."  %>
-<%      else %> 
+        <% if @shown_user && !@shown_user[1] %>
+            <%= link_to "Left", "#", id: 'left'%>
+            <script type="text/javascript">
+            $('#left').click(function(event) {
+              event.preventDefault();
+              $.post("/userevents", {
+                "shown_user_id" : 1,
+                "event_id" : 1,
+                "liked" : "no"
+              }, function(html) {
+                $("#modal-hook").html(html)
+                // drop the image im currently showing
+                // add a new image, maybe thats returned by the server
+                // call render with my new data the server sent me back
+              })
+                // <% UserEvent.create( user_id: current_user.id, event_id: event.id, shown_user_id: @shown_user[0].id, liked: "no")%>
+                //   location.reload(true);
+                // $(window).load(function(){
+                // $('#largeModal<%=event.id%>').modal('show');
+                //   });
+            });
+              </script>
+             <%= link_to "Right", "/events/#{event.id}/users/#{@shown_user[0].id}/tinder/yes", method: :post %><br>
+            <%= image_tag(@shown_user_image) %>
+            <%= link_to "#{@shown_user[0].name}", "/users/#{@shown_user[0].id}" %><br>
+        <% elsif @shown_user %>
 <%        @shown_user_image = @shown_user[0].user_image    %>
-<%      end %>
+          <h4 class="modal-title">You are matched with <%=@shown_user[0].name%>!</h3>
+           <%= image_tag(@shown_user_image) %><br>
+        <% else %>
+<%          @message = "There are no Users to display at this time."  %>
+             <p class="modal-title" style="height:100%;"><%=@message%></p>
+        <% end %>
 <%    else %>
 <%        @message = "Please pin event to continue."   %>
+          <p class="modal-title" style="height:100%;"><%=@message%></p>
 <%    end %>                                  
-                                        <% if @shown_user && !@shown_user[1] %>
-                                        <%= link_to "Left", "/events/#{event.id}/users/#{@shown_user[0].id}/tinder/no", method: :post %> <%= link_to "Right", "/events/#{event.id}/users/#{@shown_user[0].id}/tinder/yes", method: :post %><br>
-                                        <%= image_tag(@shown_user_image) %>
-                                        <%= link_to "#{@shown_user[0].name}", "/users/#{@shown_user[0].id}" %><br>
-                                        <% elsif @shown_user %>
-                                          <h4 class="modal-title">You are matched with <%=@shown_user[0].name%>!</h3>
-                                        <%= image_tag(@shown_user_image) %><br>
-                                        <% else %>
-                                        <p class="modal-title" style="height:100%;"><%=@message%></p>
-                                        <% end %>
                                       </div>
                                       <!-- end tinder div -->
 
@@ -390,3 +410,12 @@ body.modal-open,
       </div>
     </div>
   </div>
+<script>
+  function template(data) {
+    var html = "<div>" + "my name is" + data.name + "</div>";
+    // return html
+    // insert that html into the DOM
+    $("body").append(html);
+  }
+
+</script>

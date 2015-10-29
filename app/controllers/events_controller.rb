@@ -79,7 +79,7 @@ class EventsController < ApplicationController
     # it redirects back to the events page
     event = Event.find_by_id(params["id"]) 
     current_user.events << event unless current_user.events.find_by_id(event.id)
-    redirect_to "/events/#{params["id"]}"
+    redirect_to "/dashboards/index/#t2"
   end
 
 
@@ -89,7 +89,7 @@ class EventsController < ApplicationController
     # this will remove the event from the users list of events and redirect to the users page.
     event = Event.find_by_id(params["id"]) 
     current_user.events.delete(event)
-    redirect_to "/users/#{current_user.id}"
+    redirect_to "/dashboards/index/#t2"
   end
 
 

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'userevents/create'
+
 	root 'landing_pages#index'
 
   get 'dashboards/index'
@@ -8,7 +10,7 @@ Rails.application.routes.draw do
 	resources :events
 
   resources :users
-  
+  post "/userevents" => "userevents#create"
   get '/users/:id/events' => 'users#my_events'  
   get '/events/:id/pin_event' => 'events#pin_event'
   get '/events/:id/unpin_event' => 'events#unpin_event'
