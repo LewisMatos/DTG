@@ -82,6 +82,20 @@ class EventsController < ApplicationController
     redirect_to "/dashboards/index/#t2"
   end
 
+  def tinder_logic
+    event = Event.find_by_id(params['event_id'].to_i)
+        if current_user && current_user.events.include?(event)
+      @shown_user = current_user.get_user(event)
+      if !@shown_user
+        @message = "There are no Users to display at this time."
+      else
+        @shown_user_image = @shown_user[0].user_image
+      end
+    else
+        @message = "Please pin event to continue."
+    end
+    "<p>hi we are the best</p>"
+  end
 
 
   def unpin_event

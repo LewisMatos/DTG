@@ -4,6 +4,6 @@ class UsereventsController < ApplicationController
   end
 
   def whatever
-  	
+  	render modal
   end
 end

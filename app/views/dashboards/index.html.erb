@@ -306,6 +306,9 @@ body.modal-open,
   left: 0;
   z-index: 0;
 }
+.modal-header {
+  padding: 8px;
+}
 
 
    </style>
@@ -355,8 +358,8 @@ body.modal-open,
                           <!-- image is a clickable link to modal of single event page -->
 
                             <div class="info-box"><%= event.description %></div>
-                            <a href="#" class="event-link event-image" data-toggle="modal" data-target="#largeModal<%=event.id%>" 
-                            style="background: url(<%=event.image%>) center no-repeat; background-size: contain;  background-size: 250px 250px;
+                            <a href="#" class="event-link event-image" id="modal<%=event.id%>" data-toggle="modal" data-target="#largeModal<%=event.id%>" 
+                            style="background: url(<%=event.image%>) center no-repeat; background-size: contain; background-size: 250px 250px;
                             "></a>
                             <div class="info">
                             <div class="event-title"><%= event.title %>. </div>
@@ -366,17 +369,29 @@ body.modal-open,
                             <div class="modal fade" id="largeModal<%=event.id%>" tabindex="-1" role="dialog" data-width="760" data-backdrop="true">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h4 class="modal-title modal-event-title"><%=event.title%></h4>
-                              </div>
+                                 <h4> <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %> </h4>
+                                <img src="<%=event.image%>" align="right" style="width:65px;height:65px; center no-repeat;">
+                                <h3 class="modal-title modal-event-title" style="top:2%;"><%=event.title%></h3>
+                              </div> <!-- close modal head -->
                                   <div class="modal-body">
-                                    <div class="row modal-image">
-                                      <div class="col-md-6 container-fluid">
+                                      <!--first row: event info, time, then div with description-->
+                                      <div class="container-fluid modal-event-info">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                              <h5 class="modal-title"> <%=event.venue%></h5>
+                                            </div>
+                                            <div class="col-md-4">
+                                              <h5 class="modal-title"><a href="<%=event.url%>">More Info</a></h5>                                           </div>                                            
+                                            <div class="col-md-4">
+                                              <h5 class="modal-title"> <%=event.date%></h5>
+                                            </div>
+                                        </div>      
                                       <h5 class="modal-title"> <%=event.description%></h5>
                                       </div>
-                                      
+                                      </br>
                                       <!-- Tinder in modal -->
-                                      <div class="col-md-6 container-fluid" style="background-size: 250px 250px; height:300px; color:black;">
-                                        <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %> <br>   
+                                      <div class="container-fluid modal-tindering" id="modal-tindering<%=event.id%>" style="background-size: 250px 250px; height:300px; color:black;">
+  
 
 <%    if current_user && current_user.events.include?(event) %>
 <%      @shown_user = current_user.get_user(event)   %>
@@ -420,7 +435,6 @@ body.modal-open,
                                       </div>
                                       <!-- end tinder div -->
 
-                                    </div>
                                    <div class="modal-footer">
                                     <button type="button" data-dismiss="modal" class="btn">Close</button>
                                    </div>                                  
@@ -450,12 +464,22 @@ body.modal-open,
       </div>
     </div>
   </div>
-<script>
-  function template(data) {
-    var html = "<div>" + "my name is" + data.name + "</div>";
-    // return html
-    // insert that html into the DOM
-    $("body").append(html);
-  }
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.event-link').click(function(event){
+    debugger
+    $.post("/events/tinder_logic", {"event_id" : Number(event.target.id.split('modal')[1])
+  }, function(html) {
+    debugger
+    $('#modal-tindering' + event.target.id.split('modal')[1]).append(html);
+  });
+}); 
+});
 
 </script>
+
+
+
+
+
+
