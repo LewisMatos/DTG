@@ -323,15 +323,15 @@ body.modal-open,
                             <a href="#" class="event-link event-image" data-toggle="modal" data-target="#largeModal<%=event.id%>" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;  background-size: 250px 250px;"> </a> 
                                                               
                                   <!-- Modal -->
-                            <div class="modal fade" id="largeModal<%=event.id%>" tabindex="-1" role="dialog" data-width="760">
+                            <div class="modal fade" id="largeModal<%=event.id%>" tabindex="-1" role="dialog" data-width="760" data-backdrop="true">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                 <h4 class="modal-title modal-event-title"><%=event.title%></h4>
                               </div>
                                   <div class="modal-body">
                                     <div class="row modal-image">
-                                      <div class="col-md-6 container-fluid" style="background: url(<%=event.image%>) center no-repeat; background-size: 250px 250px; height:300px;">
-                                      <h4 class="modal-title"> <%=event.description%></h4>
+                                      <div class="col-md-6 container-fluid">
+                                      <h5 class="modal-title"> <%=event.description%></h5>
                                       </div>
                                       
                                       <!-- Tinder in modal -->
