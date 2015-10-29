@@ -19,6 +19,24 @@ class DashboardsController < ApplicationController
   end
 
 
+  def pin_event
+    # when a user clicks the pin event button, this will find that event, (the id is passed in the route)
+    # and will add them to the users list of events/user_events table, unless that user has already pinned the event
+    # it redirects back to the events page
+    event = Event.find_by_id(params["id"]) 
+    current_user.events << event unless current_user.events.find_by_id(event.id)
+    redirect_to "/dashboards/index#t2"
+  end
+
+
+
+  def unpin_event
+
+    # this will remove the event from the users list of events and redirect to the users page.
+    event = Event.find_by_id(params["id"]) 
+    current_user.events.delete(event)
+    redirect_to "/dashboards/index#t2"
+  end
 
 
 end

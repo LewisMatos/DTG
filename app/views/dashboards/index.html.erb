@@ -230,6 +230,50 @@ a {
 .one-event-image {
 }
 
+body.modal-open, 
+.modal-open .navbar-fixed-top, 
+.modal-open .navbar-fixed-bottom {
+  margin-right: 0;
+}
+
+.modal {
+  left: 10%;
+  top: 10%;
+  bottom: auto;
+  right: auto;
+  z-index: 1050;
+  padding: 0;
+  width: 70%;
+/*  margin-left: -340px;
+*/  background-color: #ffffff;
+  border: 1px solid #999999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+}
+.modal-title {
+  color: black;
+}
+.modal-event-title {
+  text-align: center;
+}
+
+.modal.container {
+  max-width: none;
+}
+
+.modal-backdrop {
+  display:none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+}
+
 
    </style>
 
@@ -279,43 +323,48 @@ a {
                             <a href="#" class="event-link event-image" data-toggle="modal" data-target="#largeModal" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;  background-size: 250px 250px;"> </a> 
                                                               
                                   <!-- Modal -->
-                            <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true" data-backdrop="false" style="height:600px;">
-                              <div class="modal-dialog modal-lg" style="height:600px; padding-right:20%;">
+                            <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" data-width="760">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h4 class="modal-title">Modal title</h4>
+                                <h4 class="modal-title modal-event-title"><%=event.title%></h4>
                               </div>
-
-
-                                <div class="modal-content" style="height:600px;">
-                                  <div class="modal-body" style="height:600px;">
-
+                                  <div class="modal-body">
                                     <div class="row modal-image">
                                       <div class="col-md-6 container-fluid" style="background: url(<%=event.image%>) center no-repeat; background-size: 250px 250px; height:300px;">
+                                      <h4 class="modal-title"> <%=event.description%></h4>
                                       </div>
-                                      <div class="col-md-6 container-fluid" style="background-size: 250px 250px; height:300px;">
+                                      
+                                      <!-- Tinder in modal -->
+                                      <div class="col-md-6 container-fluid" style="background-size: 250px 250px; height:300px; color:black;">
+                                        <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %> <br>   
+<%    if current_user && current_user.events.include?(event) %>
+<%      @shown_user = current_user.get_user(event)   %>
+<%      if !@shown_user %>
+<%        @message = "There are no Users to display at this time."  %>
+<%      else %> 
+<%        @shown_user_image = @shown_user[0].user_image    %>
+<%      end %>
+<%    else %>
+<%        @message = "Please pin event to continue."   %>
+<%    end %>                                  
                                         <% if @shown_user && !@shown_user[1] %>
-                                        <%= link_to "Left", "/events/#{@event.id}/users/#{@shown_user[0].id}/tinder/no", method: :post %>
+                                        <%= link_to "Left", "/events/#{event.id}/users/#{@shown_user[0].id}/tinder/no", method: :post %> <%= link_to "Right", "/events/#{event.id}/users/#{@shown_user[0].id}/tinder/yes", method: :post %><br>
                                         <%= image_tag(@shown_user_image) %>
-                                        <%= link_to "Right", "/events/#{@event.id}/users/#{@shown_user[0].id}/tinder/yes", method: :post %><br>
                                         <%= link_to "#{@shown_user[0].name}", "/users/#{@shown_user[0].id}" %><br>
                                         <% elsif @shown_user %>
-                                          <h3>You are matched with <%=@shown_user[0].name%>!</h3>
+                                          <h4 class="modal-title">You are matched with <%=@shown_user[0].name%>!</h3>
                                         <%= image_tag(@shown_user_image) %><br>
                                         <% else %>
-                                        <p><%=@message%></p>
+                                        <p class="modal-title" style="height:100%;"><%=@message%></p>
                                         <% end %>
-                                      </div>                                      
-                                    </div>
-                                    <div class="row modal-image">
-                                      <div class="col-md-6 container-fluid" style="background: url(<%=event.image%>) center no-repeat; background-size: 250px 250px; height:300px;">
                                       </div>
-                                      <div class="col-md-6 container-fluid" style="background: url(<%=event.image%>) center no-repeat; background-size: 250px 250px; height:300px;">
-                                      </div>                                      
-                                    </div>                                    
-                                  </div>
+                                      <!-- end tinder div -->
+
+                                    </div>
+                                   <div class="modal-footer">
+                                    <button type="button" data-dismiss="modal" class="btn">Close</button>
+                                   </div>                                  
                                 </div>
-                              </div>
                             </div>                              
 
                             <!-- end modal -->
