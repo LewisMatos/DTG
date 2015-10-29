@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 	private
 
   def auth_user
-    redirect_to "dashboard/index" unless user_signed_in?
+    redirect_to 'dashboard/index' unless user_signed_in?
   end
 
 

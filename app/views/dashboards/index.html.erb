@@ -227,6 +227,70 @@ a {
 
 .one-event-image {
 }
+
+.facebook{
+  font-family: Roboto;
+  height: 150px;
+  padding-top: 15vh;
+	color: #F7FAFF;
+	padding-top: 650px;
+	padding-right: 250px;
+}
+.facebook .spacer {
+  margin-bottom: 5px;
+}
+.facebook .title {
+  font-size: 20px;
+}
+
+.btn.btn-facebook {
+  position: relative;
+  color: #F7FAFF;
+  text-indent: 35px;
+  border-color: #263961;
+  background-color: #4c70ba;
+  background-image: linear-gradient(to bottom, transparent 0%, #3b5998 65%, #263961 100%);
+}
+.btn.btn-facebook:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 35px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-right: 1px solid rgba(76, 112, 186, 0.6);
+  background-color: #263961;
+  background-image: url(https://dl.dropboxusercontent.com/u/48498161/codepen/RNVdYg/facebook-logo.svg);
+  background-size: auto 75%;
+  background-position: 65% bottom;
+  background-repeat: no-repeat;
+}
+.btn.btn-facebook:hover {
+  background-color: #263961;
+  background-image: linear-gradient(to bottom, #4c70ba 0%, #3b5998 50%, transparent 100%);
+}
+.btn.btn-facebook.btn-ocd:before {
+  background-position: 50%;
+}
+.btn.btn-facebook:active, .btn.btn-facebook:focus {
+  outline: none;
+}
+.btn.btn-facebook.btn-xl {
+  text-indent: 43px;
+}
+.btn.btn-facebook.btn-xl:before {
+  width: 60px;
+}
+.btn-xl {
+    padding: 18px 28px;
+    font-size: 30px; //change this to your desired size
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+}
+
 </style>
   <div class="ct" id="t1">
     <div class="ct" id="t2">
@@ -249,13 +313,22 @@ a {
                 
                 <!-- Home Page -->
 
-                <div class="page home-page-background" id="p1">
-									<div class="container-fluid">
-										<%- if devise_mapping.omniauthable? %>
+									
+							
+
+										<%- if devise_mapping.omniauthable? && !user_signed_in?%>
   									<%- resource_class.omniauth_providers.each do |provider| %>
-    								<%= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %><br />
-  									<% end -%>
-										<% end -%>
+											<%#= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %>
+								<%= link_to omniauth_authorize_path(resource_name,provider) do%>
+								<div class="page home-page-background" id="p1">
+									<div class="container-fluid">
+										<div class="facebook text-center">
+  									<div class="spacer"><i class="fa fa-facebook btn btn-xl btn-facebook">Login with Facebook</i></div>
+										</div>
+						
+							<%end %>
+										<% end %>
+										<% end %>
 										
 										<!--  <%# current_user.events.uniq.each do |event| %> 
                     <div class="col-md-4 homepage-event-image"> 

@@ -1,6 +1,6 @@
 class MailboxController < ApplicationController
   #before_action :authenticate_user!
-	before_action :auth_user
+	 before_action :auth_user
   def inbox
     @inbox = mailbox.inbox
     @active = :inbox
