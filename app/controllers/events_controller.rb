@@ -27,7 +27,9 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
+if current_user.admin?
     @event = Event.new
+end
   end
 
   # GET /events/1/edit
