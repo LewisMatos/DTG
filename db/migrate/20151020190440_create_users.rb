@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name
 			t.integer :age			
 			t.string :gender
+      t.string :interested_in
 			t.string :image
 			t.string :cover
       t.boolean :real, default: false, null: false

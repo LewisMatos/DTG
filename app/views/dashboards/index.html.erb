@@ -51,6 +51,7 @@ section {
 /*added*/
 #event-page-style {
   padding-right: 150px;
+  padding-left: 70px; 
 }
 
 ul {
@@ -216,6 +217,38 @@ a {
   -moz-box-shadow: 0 3px 6px rgba(0,0,0,.5);
 }
 
+.info-box {
+  visibility: hidden;
+  color: black;
+  position: absolute;
+  background: ghostwhite;
+  z-index: 5;
+
+}
+
+.info {
+  width: 73%;
+  border: #848484 1px;
+  box-sizing: border-box;
+  font-family: monospace;
+  text-align: center;
+  padding-top: 3px;
+  color: black;
+  margin-top: 5px;
+
+
+}
+
+/*.homepage-event-image:hover > .info-box{
+  visibility: visible;
+}*/
+  
+  .homepage-event-image:hover{
+  -webkit-transform: scale(1.10);
+  -moz-transform: scale(1.10);
+  position: relative;
+}
+
 .somelogo {
   padding: 0;
   margin: 0;
@@ -320,8 +353,15 @@ body.modal-open,
                         <% event_row.each do |event| %>
                           <div class="col-md-4 homepage-event-image"> 
                           <!-- image is a clickable link to modal of single event page -->
-                            <a href="#" class="event-link event-image" data-toggle="modal" data-target="#largeModal<%=event.id%>" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;  background-size: 250px 250px;"> </a> 
-                                                              
+
+                            <div class="info-box"><%= event.description %></div>
+                            <a href="#" class="event-link event-image" data-toggle="modal" data-target="#largeModal<%=event.id%>" 
+                            style="background: url(<%=event.image%>) center no-repeat; background-size: contain;  background-size: 250px 250px;
+                            "></a>
+                            <div class="info">
+                            <div class="event-title"><%= event.title %>. </div>
+                            <div class="event-time-date"><%= "#{event.date} @#{event.time.split(' ')[1]}" %></div>
+                            </div>
                                   <!-- Modal -->
                             <div class="modal fade" id="largeModal<%=event.id%>" tabindex="-1" role="dialog" data-width="760" data-backdrop="true">
                               <div class="modal-header">
