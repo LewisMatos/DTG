@@ -1,0 +1,30 @@
+        <% if @shown_user && !@shown_user[1] %>
+            <%= link_to "Left", "#", id: 'no'%>
+
+             <%= link_to "Right", "#", id: 'yes' %><br>
+
+            
+            <%= image_tag(@shown_user_image) %>
+
+            <%= link_to "#{@shown_user[0].name}", "/users/#{@shown_user[0].id}" %><br>
+        <% elsif @shown_user %>
+          	<h4 class="modal-title">You are matched with <%=@shown_user[0].name%>!</h4>
+           	<%= image_tag(@shown_user_image) %><br>	
+        <% else %>
+        <% @shown_user = [current_user] %>
+            <p class="modal-title" style="height:100%;"><%=@message%></p>
+        <% end %>
+
+
+        <script type="text/javascript">
+            $('#no, #yes').click(function(event) {
+              event.preventDefault();
+              $.post("/events/tinder_logic", {
+                "event_id" : Number(event.target.parentElement.id.split('modal-tindering')[1]),
+                "like" : event.target.id,
+                "shown_user" : <%= @shown_user[0].id %> 
+              }, function(html) {
+              	$('#modal-tindering' + event.target.parentElement.id.split('modal-tindering')[1]).html(html);
+              });
+            });
+        </script>

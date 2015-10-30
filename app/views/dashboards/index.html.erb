@@ -1,7 +1,7 @@
- <style>
- * {
- transition: all 500ms ease-out;
- -webkit-transition: all 500ms ease-out;
+<style>
+    * {
+    transition: all 200ms ease-out;
+    -webkit-transition: all 200ms ease-out;
 }
 
 html, body, section, .page {
@@ -54,6 +54,12 @@ section {
   position:fixed;
 }
 
+
+/*added  ***commented out by SK*/ 
+#event-page-style {
+  padding-right: 13%;
+  /*padding-left: 70px; */
+}
 
 ul {
  position: fixed; 
@@ -113,7 +119,7 @@ ul .icon:hover {
   transition-delay: .25s;
 }
 
-/* Icons enlarge depending on what page your on */
+/* Icons enlarge depending on what page youre on */
 #t2:target #dos {
   transform: scale(1.2) !important;
 }
@@ -216,14 +222,57 @@ a {
 }
 
 .homepage-event-image { 
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   }
 
 .event-link {
   display: block;
-  height: 300px;
-  width: 100%;
+  /*height: soemting;*/
+  /*width: 100%;*/
+/*  -webkit-transition: -webkit-transform .15s linear;
+  -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+  -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);-webkit-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+  -moz-box-shadow: 0 3px 6px rgba(0,0,0,.5);*/
 }
+
+.info-box {
+  visibility: hidden;
+  color: black;
+  position: absolute;
+  background: ghostwhite;
+  z-index: 5;
+
+}
+
+.info {
+  position: inherit;
+  width: 100%;
+  border: #848484 1px;
+  box-sizing: border-box;
+  font-family: monospace;
+  text-align: center;
+  padding-right:15%;
+  padding-left:15%;
+  padding-top: 3px;
+  color: black;
+  margin-top: 5px;
+}
+
+.more-info {
+  display: block;
+  margin-left:0;
+  margin-right:0;
+}
+/*.homepage-event-image:hover > .info-box{
+  visibility: visible;
+}*/
+  
+/*  .homepage-event-image:hover{
+  -webkit-transform: scale(1.10);
+  -moz-transform: scale(1.10);
+  position: relative;
+}*/
 
 .somelogo {
   padding: 0;
@@ -296,7 +345,54 @@ a {
 .btn-xl {
     padding: 18px 28px;
     font-size: 30px; //change this to your desired size
-    line-height: normal;
+		line-height: normal;
+}
+
+ body.modal-open, 
+.modal-open .navbar-fixed-top, 
+.modal-open .navbar-fixed-bottom {
+  margin-right: 0;
+}
+
+.modal {
+  left: 10%;
+  top: 10%;
+  bottom: auto;
+  right: auto;
+  z-index: 1050;
+  padding: 0;
+  width: 70%;
+/*  margin-left: -340px;
+*/  background-color: #ffffff;
+  border: 1px solid #999999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+}
+.modal-title {
+  color: black;
+}
+.modal-event-title {
+  text-align: center;
+}
+
+.modal.container {
+  max-width: none;
+}
+
+.modal-backdrop {
+  display:none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+}
+.modal-header {
+  padding: 8px;
 }
 
 </style>
@@ -307,7 +403,7 @@ a {
 
 
           <section>  
-             <!-- Left navigaiton bar. Icons that use anchors to pull in page into view (#t2 = Events page) -->
+             <!-- Left navigation bar. Icons that use anchors to pull in page into view (#t2 = Events page) -->
              <ul>
                <ul class="login">
 								<%= render 'devise/menu/registration_items' %>
@@ -334,6 +430,16 @@ a {
 										<% end -%>
 										<% end -%>
 										<!-- facebook login end -->	
+                <!-- Home Page -->
+
+                <div class="page home-page-background" id="p1">
+                  <div class="container-fluid">
+                     <li class="icon fa fa-home"><span class="title">Home<span class="hint" style="color:red;"> 
+
+
+
+                     </span></span></li>
+
                   </div>
                 </div>
 
@@ -342,34 +448,69 @@ a {
 
                 <!-- Events Page -->
                 <div class="page" id="p2">
-                <div class="container-fluid">
+                <div class="container-fluid" id="event-page-style">
                  <!-- iterate through slices of 3 of events, create modals -->
                     <%=@events.order("date").each_slice(3) do |event_row| %>
                       <div class="row">
                         <% event_row.each do |event| %>
                           <div class="col-md-4 homepage-event-image"> 
                           <!-- image is a clickable link to modal of single event page -->
-                            <a href="#" class="event-link" data-toggle="modal" data-target="#basicModal" style="background: url(<%=event.image%>) center no-repeat; background-size: contain;"> </a> 
-                                  <!-- Modal -->
-                              <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                <div class="modal-dialog">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                      <h4 class="modal-title" id="myModalLabel">Basic Modal</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                      <h3>Modal Body</h3>
-																		</div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                      <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                  </div>
-                                </div>
+
+                            <div class="info-box"><%= event.description %></div>
+                            <a href="#" class="event-link event-image" id="modal<%=event.id%>" data-toggle="modal" data-target="#largeModal<%=event.id%>" 
+                            style="background: url(<%=event.image%>) center no-repeat; background-size: contain;
+                            "></a>
+                            <div class="info">
+                              <div class="more-info">
+                              <div class="event-title"><%= event.title %>. </div>
+                              <div class="event-time-date">              
+                                <%= "#{event.date.to_s[5..6]}/#{event.date.to_s[8..9]}/#{event.date.to_s[0..3]} @#{event.time.split(' ')[1]}" %></div>
+                              <div class="pin-me-event"> <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %></div>  
                               </div> 
 
-                            <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %>   
+                            </div>
+                                  <!-- Modal -->
+                             <div class="modal fade" id="largeModal<%=event.id%>" tabindex="-1" role="dialog" data-width="760" data-backdrop="true">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                 <h4> <%= link_to 'Pin Event', "#", id: "pin-event#{event.id}"%> </h4>
+                                <img src="<%=event.image%>" align="right" style="width:65px;height:65px; center no-repeat;">
+                                <h3 class="modal-title modal-event-title" style="top:2%;"><%=event.title%></h3>
+                              </div> <!-- close modal head -->
+                                  <div class="modal-body">
+                                      <!--first row: event info, time, then div with description-->
+                                      <div class="container-fluid modal-event-info">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                              <h5 class="modal-title"> <%=event.venue%></h5>
+                                            </div>
+                                            <div class="col-md-4">
+                                              <h5 class="modal-title"><a href="<%=event.url%>">More Info</a></h5>                                           </div>                                            
+                                            <div class="col-md-4">
+                                              <!-- displays date in correct format -->
+                                              <%=date=event.date.to_s%>
+                                              <%=date="#{date[5..6]}/#{date[8..9]}/#{date[0..3]}"%>
+                                              <h5 class="modal-title"> <%=date%></h5>
+                                            </div>
+                                        </div>      
+                                      <h5 class="modal-title"> <%=event.description%></h5>
+                                      </div>
+                                      </br>
+                                      <!-- Tinder in modal -->
+                                      <div class="container-fluid modal-tindering" id="modal-tindering<%=event.id%>" style="background-size: 250px 250px; height:300px; color:black;">
+  
+
+                                      </div>
+                                      <!-- end tinder div -->
+
+                                   <div class="modal-footer">
+                                    <button type="button" data-dismiss="modal" class="btn">Close</button>
+                                   </div>                                  
+                                </div>
+                            </div>                              
+
+                            <!-- end modal -->
+
                           </div>
                         <% end %>
                       </div>
@@ -396,3 +537,28 @@ a {
       </div>
     </div>
   </div>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.event-link').click(function(event){
+    $.post("/events/tinder_logic", {"event_id" : Number(event.target.id.split('modal')[1])
+  }, function(html) {
+    $('#modal-tindering' + event.target.id.split('modal')[1]).html(html);
+  });
+}); 
+
+$('[id*="pin-event"]').click(function(event){
+    event.preventDefault();
+    $.post("/events/tinder_logic", {"event_id" : Number(event.target.id.split('pin-event')[1]), 'pin_event' : true
+  }, function(html) {
+    $('#modal-tindering' + event.target.id.split('pin-event')[1]).html(html);
+  });
+}); 
+});
+
+</script>
+
+
+
+
+
+

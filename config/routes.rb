@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+  get 'userevents/create'
 
 	root 'dashboards#index'
 	
@@ -7,8 +9,9 @@ Rails.application.routes.draw do
 	
 	resources :events
 
- # resources :users
   
+  resources :users
+  post "/userevents" => "userevents#create"
   get '/users/:id/events' => 'users#my_events'  
   get '/events/:id/pin_event' => 'events#pin_event'
   get '/events/:id/unpin_event' => 'events#unpin_event'
@@ -26,6 +29,11 @@ Rails.application.routes.draw do
       post :untrash
     end  
   end
+  post "/users/:id/interested_in" => 'users#interested_in'
+  post '/events/tinder_logic' => 'events#tinder_logic'
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
