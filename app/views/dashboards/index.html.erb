@@ -48,10 +48,10 @@ section {
 }
 
 
-/*added*/
+/*added  ***commented out by SK*/ 
 #event-page-style {
-  padding-right: 150px;
-  padding-left: 70px; 
+  padding-right: 13%;
+  /*padding-left: 70px; */
 }
 
 ul {
@@ -103,7 +103,7 @@ ul .icon:hover {
   transition-delay: .25s;
 }
 
-/* Icons enlarge depending on what page your on */
+/* Icons enlarge depending on what page youre on */
 #t2:target #dos {
   transform: scale(1.2) !important;
 }
@@ -204,17 +204,18 @@ a {
 }
 
 .homepage-event-image { 
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   }
 
 .event-link {
   display: block;
-  height: 250px;
-  width: 250px;
-  -webkit-transition: -webkit-transform .15s linear;
+  /*height: soemting;*/
+  /*width: 100%;*/
+/*  -webkit-transition: -webkit-transform .15s linear;
   -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
   -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);-webkit-box-shadow: 0 3px 6px rgba(0,0,0,.5);
-  -moz-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+  -moz-box-shadow: 0 3px 6px rgba(0,0,0,.5);*/
 }
 
 .info-box {
@@ -227,18 +228,24 @@ a {
 }
 
 .info {
-  width: 73%;
+  position: inherit;
+  width: 100%;
   border: #848484 1px;
   box-sizing: border-box;
   font-family: monospace;
   text-align: center;
+  padding-right:15%;
+  padding-left:15%;
   padding-top: 3px;
   color: black;
   margin-top: 5px;
-
-
 }
 
+.more-info {
+  display: block;
+  margin-left:0;
+  margin-right:0;
+}
 /*.homepage-event-image:hover > .info-box{
   visibility: visible;
 }*/
@@ -359,12 +366,16 @@ body.modal-open,
 
                             <div class="info-box"><%= event.description %></div>
                             <a href="#" class="event-link event-image" id="modal<%=event.id%>" data-toggle="modal" data-target="#largeModal<%=event.id%>" 
-                            style="background: url(<%=event.image%>) center no-repeat; background-size: contain; background-size: 250px 250px;
+                            style="background: url(<%=event.image%>) center no-repeat; background-size: contain;
                             "></a>
                             <div class="info">
-                            <div class="event-title"><%= event.title %>. </div>
-                            <div class="event-time-date">              
-                              <%= "#{event.date.to_s[5..6]}/#{event.date.to_s[8..9]}/#{event.date.to_s[0..3]} @#{event.time.split(' ')[1]}" %></div>
+                              <div class="more-info">
+                              <div class="event-title"><%= event.title %>. </div>
+                              <div class="event-time-date">              
+                                <%= "#{event.date.to_s[5..6]}/#{event.date.to_s[8..9]}/#{event.date.to_s[0..3]} @#{event.time.split(' ')[1]}" %></div>
+                              <div class="pin-me-event"> <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %></div>  
+                              </div> 
+
                             </div>
                                   <!-- Modal -->
                             <div class="modal fade" id="largeModal<%=event.id%>" tabindex="-1" role="dialog" data-width="760" data-backdrop="true">
@@ -408,7 +419,6 @@ body.modal-open,
 
                             <!-- end modal -->
 
-                            <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %>   
                           </div>
                         <% end %>
                       </div>
