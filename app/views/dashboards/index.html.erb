@@ -369,7 +369,7 @@ body.modal-open,
                             <div class="modal fade" id="largeModal<%=event.id%>" tabindex="-1" role="dialog" data-width="760" data-backdrop="true">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                 <h4> <%= link_to 'Pin Event', "/events/#{event.id}/pin_event" %> </h4>
+                                 <h4> <%= link_to 'Pin Event', "#", id: "pin-event#{event.id}"%> </h4>
                                 <img src="<%=event.image%>" align="right" style="width:65px;height:65px; center no-repeat;">
                                 <h3 class="modal-title modal-event-title" style="top:2%;"><%=event.title%></h3>
                               </div> <!-- close modal head -->
@@ -393,45 +393,6 @@ body.modal-open,
                                       <div class="container-fluid modal-tindering" id="modal-tindering<%=event.id%>" style="background-size: 250px 250px; height:300px; color:black;">
   
 
-<%    if current_user && current_user.events.include?(event) %>
-<%      @shown_user = current_user.get_user(event)   %>
-        <% if @shown_user && !@shown_user[1] %>
-            <%= link_to "Left", "#", id: 'left'%>
-            <script type="text/javascript">
-            $('#left').click(function(event) {
-              event.preventDefault();
-              $.post("/userevents", {
-                "shown_user_id" : 1,
-                "event_id" : 1,
-                "liked" : "no"
-              }, function(html) {
-                $("#modal-hook").html(html)
-                // drop the image im currently showing
-                // add a new image, maybe thats returned by the server
-                // call render with my new data the server sent me back
-              })
-                // <% UserEvent.create( user_id: current_user.id, event_id: event.id, shown_user_id: @shown_user[0].id, liked: "no")%>
-                //   location.reload(true);
-                // $(window).load(function(){
-                // $('#largeModal<%=event.id%>').modal('show');
-                //   });
-            });
-              </script>
-             <%= link_to "Right", "/events/#{event.id}/users/#{@shown_user[0].id}/tinder/yes", method: :post %><br>
-            <%= image_tag(@shown_user_image) %>
-            <%= link_to "#{@shown_user[0].name}", "/users/#{@shown_user[0].id}" %><br>
-        <% elsif @shown_user %>
-<%        @shown_user_image = @shown_user[0].user_image    %>
-          <h4 class="modal-title">You are matched with <%=@shown_user[0].name%>!</h3>
-           <%= image_tag(@shown_user_image) %><br>
-        <% else %>
-<%          @message = "There are no Users to display at this time."  %>
-             <p class="modal-title" style="height:100%;"><%=@message%></p>
-        <% end %>
-<%    else %>
-<%        @message = "Please pin event to continue."   %>
-          <p class="modal-title" style="height:100%;"><%=@message%></p>
-<%    end %>                                  
                                       </div>
                                       <!-- end tinder div -->
 
@@ -467,11 +428,17 @@ body.modal-open,
 <script type="text/javascript">
 $(document).ready(function(){
   $('.event-link').click(function(event){
-    debugger
     $.post("/events/tinder_logic", {"event_id" : Number(event.target.id.split('modal')[1])
   }, function(html) {
-    debugger
-    $('#modal-tindering' + event.target.id.split('modal')[1]).append(html);
+    $('#modal-tindering' + event.target.id.split('modal')[1]).html(html);
+  });
+}); 
+
+$('[id*="pin-event"]').click(function(event){
+    event.preventDefault();
+    $.post("/events/tinder_logic", {"event_id" : Number(event.target.id.split('pin-event')[1]), 'pin_event' : true
+  }, function(html) {
+    $('#modal-tindering' + event.target.id.split('pin-event')[1]).html(html);
   });
 }); 
 });
