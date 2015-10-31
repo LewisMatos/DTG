@@ -9,10 +9,12 @@ class DashboardsController < ApplicationController
     if UserEvent.all[3].nil?	
       User.all.each do |user| 
             Event.all.each do |event|
+							unless current_user.nil?
               if (user.id != current_user.id)  && (current_user)
                 user.events << event
               	UserEvent.create(user_id: user.id, event_id: event.id, shown_user_id: current_user.id, liked: 'yes') 
-              end
+							end
+						 	end
             end  
       end   
     end
