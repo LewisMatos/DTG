@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :pin_event, :unpin_event]
-
+	before_action :auth_user
+	
+	before_action :set_event, only: [:show, :edit, :update, :destroy, :pin_event, :unpin_event]
   # GET /events
   # GET /events.json
   def index
@@ -26,7 +27,9 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
+if current_user.admin?
     @event = Event.new
+end
   end
 
   # GET /events/1/edit

@@ -75,3 +75,6 @@ gem 'omniauth-facebook'
 gem 'mailboxer'
 gem 'chosen-rails'
 gem "compass-rails" 
+gem "figaro"
+gem 'mailgun-ruby', '~>1.0.3', require: 'mailgun'
+gem 'delayed_job_active_record'

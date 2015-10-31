@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
-  root 'dashboards#index'
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+	root 'dashboards#index'
+	
+	
+	devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+	
 	resources :events
 
-  resources :users
+ # resources :users
   
   get '/users/:id/events' => 'users#my_events'  
   get '/events/:id/pin_event' => 'events#pin_event'

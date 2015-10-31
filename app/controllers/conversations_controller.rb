@@ -1,6 +1,7 @@
 class ConversationsController < ApplicationController
-
-  def new
+	before_action :auth_user
+  
+	def new
   end
 
   def create
