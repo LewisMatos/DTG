@@ -10,10 +10,9 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree ../../../vendor/assets/stylesheets/.
- *= require_tree .
  *= require_self
  *= require chosen
+ *= require mailbox
  //= require dashboards
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.eot"
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.woff"
@@ -35,5 +34,9 @@ body {
 
 .theme-showcase > p > .btn {
   margin: 5px 0;
+}
+
+a {
+  text-decoration: none !important;
 }
 

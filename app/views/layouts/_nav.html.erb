@@ -1,29 +1,17 @@
-<!-- Fixed navbar -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-			</button>
-			<div class="navbar-brand">
-				<p class="downtoGO">downtoGO</p>
-			</div>
-      <%#= link_to "downtoGO", root_path, class: "navbar-brand" %>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav pull-right">
-    <% if user_signed_in? %>
-        <li><%= link_to "Hello, #{current_user.name}", "#" %></li>
-        <li><%= link_to "Inbox", mailbox_inbox_path %></li>
-        <li><%#= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-    <% else %>
+<nav>
+    <ul>
+      <% if user_signed_in? %>
+        <li><%= link_to "Compose", new_conversation_path %></li>
+        <li><%= link_to "Inbox", mailbox_inbox_path %><span class="dropBottom"></span>
+            <ul>
+                <li><%= link_to "Sent", mailbox_sent_path %></li>
+                <li><%= link_to "Trash", mailbox_trash_path %></li>
+            </ul>
+        </li>
+        <li><%= "Hello, #{current_user.name}" %></li>
+      <% else %>
         <li class="active"><%= link_to "Login", new_user_session_path %></li>
-        <li><%= link_to "Sign up", new_user_registration_path %></li>
-    <% end %>
-  </ul>
-    </div><!--/.nav-collapse -->
-  </div>
+        <li><%= link_to "Sign Up", new_user_registration_path %></li>
+      <% end %>
+    </ul>
 </nav>
