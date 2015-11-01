@@ -29,6 +29,18 @@ class User < ActiveRecord::Base
         end
 	end
 
+	 def User.matched_user_events
+		matched_users = []
+		Event.all.each  do |event|
+			User.all.each do |user|
+				if user.get_user(event) 
+					matched_users << [user,event]
+				end	
+			end
+		end
+		matched_users
+	end
+
 	# this is a sequel query which will eliminate the users who have liked you, and you have also liked.
   	# it will then filter out the same gender as you (should be change to reflect your sexual preference)
   	# and will only find the users who have pinned this event.
