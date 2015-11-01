@@ -1,5 +1,5 @@
-class  UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :my_events]
+class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :my_events, :interested_in]
 
   # GET /users
   # GET /users.json
@@ -69,7 +69,12 @@ class  UsersController < ApplicationController
   def tinder
     # when a user 'swipes right' or 'left', this will add a new row to the user_events table with the info. and redirect to the event they came from.
     UserEvent.create( user_id: current_user.id, event_id: params["event_id"].to_i, shown_user_id: params["user_id"].to_i, liked: "#{params["selection"]}")
-    redirect_to "/events/#{params["event_id"].to_i}"
+    redirect_to "/"
+  end
+
+  def interested_in
+    @user.update(interested_in: params["interested_in"])
+    redirect_to '/dashboards/index'
   end
 
   private

@@ -82,9 +82,27 @@ end
     # it redirects back to the events page
     event = Event.find_by_id(params["id"]) 
     current_user.events << event unless current_user.events.find_by_id(event.id)
-    redirect_to "/events/#{params["id"]}"
   end
 
+  def tinder_logic
+    @event = Event.find_by_id(params['event_id'].to_i)
+      if params['like']
+        UserEvent.create( user_id: current_user.id, event_id: params["event_id"].to_i, shown_user_id: params["shown_user"].to_i, liked: params["like"])
+      elsif params['pin_event']
+        current_user.events << @event unless current_user.events.find_by_id(@event.id)
+      end
+    if current_user && current_user.events.include?(@event)
+      @shown_user = current_user.get_user(@event)
+      if !@shown_user
+        @message = "There are no Users to display at this time."
+      else
+        @shown_user_image = @shown_user[0].user_image
+      end
+    else
+        @message = "Please pin event to continue."
+    end
+    render layout: false
+  end
 
 
   def unpin_event
@@ -92,7 +110,7 @@ end
     # this will remove the event from the users list of events and redirect to the users page.
     event = Event.find_by_id(params["id"]) 
     current_user.events.delete(event)
-    redirect_to "/users/#{current_user.id}"
+    redirect_to "/dashboards/index/#t2"
   end
 
 
@@ -104,6 +122,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :venue, :street_number, :city, :sttate, :zip, :description, :url, :image, :category)
+      params.require(:event).permit(:title, :venue, :street_number, :city, :state, :zip, :description, :url, :image, :category)
     end
 end
