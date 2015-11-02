@@ -8,17 +8,16 @@ class DashboardsController < ApplicationController
    # randomly assign all users except me to events, users all like current user                     
     if UserEvent.all[3].nil?	
       User.all.each do |user| 
-            Event.all.each do |event|
-							unless current_user.nil?
-              if (user.id != current_user.id)  && (current_user)
-                user.events << event
-              	UserEvent.create(user_id: user.id, event_id: event.id, shown_user_id: current_user.id, liked: 'yes') 
+      	Event.all.each do |event|
+					unless current_user.nil?
+          	if (user.id != current_user.id)  && (current_user)
+            	user.events << event
+              UserEvent.create(user_id: user.id, event_id: event.id, shown_user_id: current_user.id, liked: 'yes') end
 							end
-						 	end
-            end  
-      end   
-    end
-  end
+				end  
+			end   
+		end
+	end
 
 
   def pin_event
@@ -33,11 +32,16 @@ class DashboardsController < ApplicationController
 
 
   def unpin_event
-
-    # this will remove the event from the users list of events and redirect to the users page.
+	  # this will remove the event from the users list of events and redirect to the users page.
     event = Event.find_by_id(params["id"]) 
     current_user.events.delete(event)
-    redirect_to "/dashboards/index#t2"
-  end
+		redirect_to "/dashboards/index#t2"
+	end
+
+
+	private
+ 	def event_params
+      params.require(:dashboard).permit()
+ 	end
 
 end
