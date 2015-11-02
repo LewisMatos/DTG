@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 	
 	resources :events
 
+  post '/events/pin-event' => 'events#pin_event'
   
   resources :users
   post "/userevents" => "userevents#create"

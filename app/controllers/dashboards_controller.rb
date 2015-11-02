@@ -20,7 +20,7 @@ class DashboardsController < ApplicationController
 	end
 
 
-  def pin_event
+  def pin_event 
     # when a user clicks the pin event button, this will find that event, (the id is passed in the route)
     # and will add them to the users list of events/user_events table, unless that user has already pinned the event
     # it redirects back to the events page
