@@ -1,14 +1,3 @@
-jQuery ->
-  $('body').prepend('<div id="fb-root"></div>')
-
-  $.ajax
-    url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
-    dataType: 'script'
-    cache: true
-
-
-window.fbAsyncInit = ->
-  FB.init(appId: '893566727379139',status : true, cookie : true, xfbml  : true  )
 
 `function get_browser_info(){
     var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
@@ -27,11 +16,24 @@ window.fbAsyncInit = ->
       version: M[1]
     };
  };`
-
 browser = get_browser_info();
 if (browser.name != "Chrome")
-  $('#sign_in').click (e) ->
-    e.preventDefault()
-    FB.login (response) ->
-      window.location = '/auth/facebook/callback' if response.authResponse
+	jQuery ->
+  	$('body').prepend('<div id="fb-root"></div>')
+
+  	$.ajax
+    	url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
+    	dataType: 'script'
+    	cache: true
+
+	window.fbAsyncInit = ->
+  	FB.init(appId: '893566727379139', cookie: true)
+  	$('#popup').click (e) ->
+    	e.preventDefault()
+    	FB.login (response) ->
+      	window.location = 'users/auth/facebook/callback' if response.authResponse
+
+
+
+
 
