@@ -7,6 +7,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :interested_in
 			t.string :image
 			t.string :cover
+			t.string :bio
+			t.string :instagram_url
       t.boolean :real, default: false, null: false
       t.timestamps null: false
     end
