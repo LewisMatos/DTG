@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 20151029024439) do
     t.string   "image"
     t.string   "cover"
     t.string   "bio"
+    t.string   "instagram_url"
     t.boolean  "real",                   default: false, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
