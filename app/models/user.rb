@@ -32,8 +32,8 @@ class User < ActiveRecord::Base
 	 def matched_user_events
 		matched_users = []
 		Event.all.each  do |event|
-			result = self.get_user(event)
-			if result[1]
+			result = self.find_match(event)
+			if result[0]
 				matched_users << [result[0],event]
 			end	
 		end
