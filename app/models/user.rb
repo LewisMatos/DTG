@@ -29,14 +29,13 @@ class User < ActiveRecord::Base
         end
 	end
 
-	 def User.matched_user_events
+	 def matched_user_events
 		matched_users = []
 		Event.all.each  do |event|
-			User.all.each do |user|
-				if user.get_user(event)[1] 
-					matched_users << [user,event]
-				end	
-			end
+			result = self.get_user(event)
+			if result[1]
+				matched_users << [result[0],event]
+			end	
 		end
 		matched_users
 	end
