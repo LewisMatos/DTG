@@ -16,6 +16,7 @@
 //= require chosen-jquery
 //= require facebook
 //= require prefixfree.jquery
+//= require dashboards
 //= require users
 //= require_tree ../../../vendor/assets/javascripts/.
 //= require_tree .

@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 
 	def self.from_omniauth(auth)
 		where(provider: auth.provider, uid: auth.uid.to_s).first_or_create do |user|
-	        user.provider = auth.provider
+	    user.provider = auth.provider
 			user.uid = auth.uid
 			user.name = auth.info.name
 			user.gender = auth.extra.raw_info.gender
@@ -25,8 +25,8 @@ class User < ActiveRecord::Base
 			#user.email = auth.info.email
 			user.image = auth.info.image
 			user.real = true 
-	        user.password = Devise.friendly_token[0,20]
-        end
+	    user.password = Devise.friendly_token[0,20]
+      end
 	end
 
 	 def matched_user_events

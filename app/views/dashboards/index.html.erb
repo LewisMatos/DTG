@@ -412,7 +412,14 @@ body.modal-open,.modal-open .navbar-fixed-top,.modal-open .navbar-fixed-bottom {
             <a href="#t1"><li class="icon fa fa-home" id="uno"><span class="hint"> Home </span></li></a>
             <a href="#t2"><li class="icon fa fa-thumb-tack" id="dos"><span class="hint"> Events </span></li></a>
             <a href="#t3"><li class="icon fa fa-comments" id="tres"><span class="hint"> Messages </span></li></a>
-          </ul>
+						<a href="#t4"><li class="icon fa fa-user" id="cuatro"><span class="hint">Profile </span></li></a>
+					</ul>
+					<script>
+			$.get("/users", function(data) {
+  			console.log('data');
+  			alert("Load was performed.");
+});
+					</script>
         </section>
         <!-- End of nav bar -->
 

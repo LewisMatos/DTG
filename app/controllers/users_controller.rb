@@ -32,6 +32,7 @@ class UsersController < ApplicationController
         SendEmailJob.set(wait: 20.seconds).perform_later(@user)
 				format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
+					format.js {}
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
