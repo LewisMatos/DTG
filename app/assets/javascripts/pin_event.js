@@ -1,4 +1,5 @@
 	$(document).ready(function(){
+
   $('.event-link').click(function(event){
     $.post("/events/tinder_logic", {"event_id" : Number(event.target.id.split('modal')[1])
   }, function(html) {
@@ -22,6 +23,19 @@ $('[id*="pin-me-event"]').click(function(event){
     alert('Event Pinned!');
   });
 })
+
+
+
+setInterval(function(){
+    $.get('/events/have-match', function(data){
+      if(data.matches) {
+        $.each(data.matches, function(index, value){
+          alert(value.name + ' is Down To Go to ' + value.event + '!');
+        });
+      };
+    });
+}, 5000);
+
 
 
 });
