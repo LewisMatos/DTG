@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 		matched_users = []
 		Event.all.each  do |event|
 			User.all.each do |user|
-				if user.get_user(event) 
+				if user.get_user(event)[1] 
 					matched_users << [user,event]
 				end	
 			end
