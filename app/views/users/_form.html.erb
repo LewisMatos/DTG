@@ -1,41 +1,53 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= form_for(user, remote: true) do |f| %>
+    <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %>
+      <br>
+      <%= f.text_field :name %>
     </div>
-  <% end %>
-	
-	<div class="field">
-    <%= f.label :age %><br>
-    <%= f.text_field :age %>
-	</div>
-	<div class="field">
-    <%= f.label :gender %><br>
-    <%= f.text_field :gender%>
-	</div>
-	
-	<div class="field">
-    <%= f.label :instagram_url %><br>
-    <%= f.text_field :instagram_url %>
-	</div>
-	
-	<div class="field">
-    <%= f.label :interested_in %><br>
-    <%= f.text_field :interested_in %>
-	</div>
+		
+		<div class="field">
+      <%= f.label :age %>
+      <br>
+      <%= f.text_field :age%>
+    </div>
 
-	<div class="field">
-    <%= f.label :bio %><br>
-    <%= f.text_field :bio %>
-	</div>
-  	
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+		<div class="field">
+      <%= f.label :gender%>
+      <br>
+		<%=	f.select( :gender, options_for_select([["Male", "male"],["Female","female"]])) %>
+    </div>
+		
+				
+		<div class="field">
+      <%= f.label :bio %>
+      <br>
+      <%= f.text_field :bio %>
+    </div>
+		
+		
+		<div class="field">
+      <%= f.label :instagram_url %>
+      <br>
+      <%= f.text_field :instagram_url %>
+    </div>
+	
+		<div class="field">
+      <%= f.label :interested_in %>
+			<br>
+			<%= f.select( :interested_in, options_for_select([["Male", "male"],["Female","female"]])) %>
+    </div>
+		
+		<button type="input" class="btn btn-primary actions" name="commit" value="Submit">Update User</button>
 <% end %>
