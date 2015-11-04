@@ -1,0 +1,36 @@
+<style>
+body {
+  background-color:white;
+}
+</style>
+
+<body>
+
+
+
+
+
+
+
+
+<ul class="collapsible" data-collapsible="accordion" style="width:100%;">
+    <li>
+      <div class="collapsible-header" style="height:100px;"><img src="http://musictour.eu/data//uploads/media/albums/1278/020cfc18327292d7fda5332013d06d7a.jpg" style="width:150px;, height:150px;">   Liana La Havas   </div>
+      <div class="collapsible-body" style="background-color:white;">
+        <%= render partial: 'messages' %>
+        <% binding.pry %>
+        <br>
+          <%= form_for :message, url: reply_conversation_path(conversation) do |f| %>
+            <div class="form-group">
+              <%= f.text_area :body, placeholder: "Reply Message", rows: 4, class: "form-control" %>
+              <%= f.submit "Reply", class: 'btn btn-danger pull-right' %>
+            </div>
+          <% end %>
+          <br>
+      </div>
+    </li>
+</ul>
+
+
+</body>
+

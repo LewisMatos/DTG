@@ -4,7 +4,6 @@ class MailboxController < ApplicationController
   def inbox
     @inbox = mailbox.inbox
     @active = :inbox
-    #binding.pry
   end
 
   def sent
@@ -15,6 +14,9 @@ class MailboxController < ApplicationController
   def trash
     @trash = mailbox.trash
     @active = :trash
+  end
+
+  def show
   end
 
 

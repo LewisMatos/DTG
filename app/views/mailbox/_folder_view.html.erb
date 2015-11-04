@@ -1,6 +1,6 @@
   <!-- Home view for the inbox -->
 
-  <!-- <div class="row">
+<div class="row">
     <div class="spacer"></div>
       <div class="col-md-12">
         <%= link_to "Compose", new_conversation_path, class: "btn btn-success" %>
@@ -10,7 +10,7 @@
   
   </div>
 
-  <h1>Helo</h1> -->
+  <h1>Helo</h1>
 
   <div class="col-md-4">
     <div class="panel panel-default">
@@ -27,6 +27,7 @@
             <%= render 'conversations/form' %>
         <% else %>
         <%= render partial: 'conversations/conversation', collection: messages %>
+        
         <% end %>
       </div>
     </div>

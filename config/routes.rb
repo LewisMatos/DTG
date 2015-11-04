@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "mailbox/inbox" => "mailbox#inbox", as: :mailbox_inbox
   get "mailbox/sent" => "mailbox#sent", as: :mailbox_sent
   get "mailbox/trash" => "mailbox#trash", as: :mailbox_trash
+  get "mailbox/show" => "mailbox#show", as: :mailbox_show
 
   resources :conversations do
     member do

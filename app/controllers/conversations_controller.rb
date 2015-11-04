@@ -12,13 +12,15 @@ class ConversationsController < ApplicationController
   end
 
   def show
+    @inbox = mailbox.inbox
     @receipts = conversation.receipts_for(current_user)
     # mark conversation as read
     conversation.mark_as_read(current_user)
   end
 
   def reply
-    current_user.reply_to_conversation(conversation, message_params[:body])
+    # message_params was an undefined method
+    current_user.reply_to_conversation(conversation, params[:message][:body])
     flash[:notice] = "Your reply message was successfully sent!"
     redirect_to conversation_path(conversation)
   end

@@ -12,7 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require materialize-sprockets
 //= require bootstrap
 //= require chosen-jquery
 //= require_tree ../../../vendor/assets/javascripts/.
-//= require_tree .
+

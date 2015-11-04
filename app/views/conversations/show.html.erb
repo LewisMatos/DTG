@@ -1,44 +1,39 @@
-<div class="row">
-  <div class="spacer"></div>
-  <div class="col-md-6">
-    <%= link_to "Compose", new_conversation_path, class: "btn btn-success" %>
-  </div>
-  <div class="col-md-6 text-right">
-    <% if conversation.is_trashed?(current_user) %>
-        <%= link_to 'Untrash', untrash_conversation_path(conversation), class: 'btn btn-info', method: :post %>
-    <% else %>
-        <%= link_to 'Move to trash', trash_conversation_path(conversation), class: 'btn btn-danger', method: :post,
-                    data: {confirm: 'Are you sure?'} %>
-    <% end %>
-  </div>
-</div>
-<h1> Hello </h1>
-<div class="row">
-  <div class="spacer"></div>
-  <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <%= render 'mailbox/folders' %>
-      </div>
-    </div>
-  </div>
+<style>
+body {
+  background-color:white;
+}
+</style>
 
-  <div class="col-md-8">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <%= render partial: 'messages' %>
-      </div>
-      <div class="panel-footer">
-        <!-- Reply Form -->
-        <%= form_for :message, url: reply_conversation_path(conversation) do |f| %>
-            <div class="form-group">
-              <%= f.text_area :body, placeholder: "Reply Message", rows: 4, class: "form-control" %>
+<body>
+
+
+
+
+
+
+<% @inbox.each do |matches| %>
+   <% @conversations = matches.messages %>
+      <ul class="collapsible" data-collapsible="accordion" style="width:100%;">
+          <li>
+            <div class="collapsible-header" style="height:100px;"><img src="http://musictour.eu/data//uploads/media/albums/1278/020cfc18327292d7fda5332013d06d7a.jpg" style="width:150px;, height:150px;">   Liana La Havas   </div>
+            <div class="collapsible-body" style="background-color:white;">
+              <% @conversations.each do |convo| %>
+                  <% @convo = convo %>
+                  <%= render partial: 'messages', object: @convo, as: 'message' %>
+                  <br>
+                <%= form_for :message, url: reply_conversation_path(conversation) do |f| %>
+                  <div class="form-group">
+                    <%= f.text_area :body, placeholder: "Reply Message", rows: 4, class: "form-control" %>
+                    <%= f.submit "Reply", class: 'btn btn-danger pull-right' %>
+                  </div>
+                <% end %>
+                <br>
+              <% end %>
             </div>
-            <%= f.submit "Reply", class: 'btn btn-danger pull-right' %>
-        <% end %>
-        <div class="clearfix"></div>
-      </div>
-    </div>
-  </div>
+          </li>
+      </ul>
+<% end %>
 
-</div>
+
+</body>
+
