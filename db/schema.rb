@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029024439) do
+ActiveRecord::Schema.define(version: 20151104182554) do
 
   create_table "dashboards", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 20151029024439) do
     t.string   "liked"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "not_alerted"
   end
 
   add_index "user_events", ["event_id"], name: "index_user_events_on_event_id"
@@ -115,8 +116,6 @@ ActiveRecord::Schema.define(version: 20151029024439) do
     t.string   "interested_in"
     t.string   "image"
     t.string   "cover"
-    t.string   "bio"
-    t.string   "instagram_url"
     t.boolean  "real",                   default: false, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false

@@ -112,6 +112,20 @@ end
 
   end
 
+  def have_match
+    matches = UserEvent.find_by_sql("select * from user_events where user_events.shown_user_id = #{current_user.id} and user_events.not_alerted = 'yes'")
+    if matches.length > 0
+      json = {matches: []}
+      matches.each do |match|
+      json[:matches] << {'name' => User.find(match.user_id).name, 'event' => Event.find(match.event_id).title  }
+      match.update(not_alerted: 'no')
+     end
+    else
+      json = { has_match: 'no'}
+    end
+    render :json => json
+  end
+
 
   def unpin_event
 

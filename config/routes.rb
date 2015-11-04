@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   get 'userevents/create'
-
+  get '/events/have-match' => 'events#have_match'
 	root 'dashboards#index'
 	
 	
