@@ -13,6 +13,8 @@
         <% else %>
         <% @shown_user = [current_user] %>
             <p class="modal-title" style="height:100%;"><%=@message%></p>
+            <% if @no_profile %>
+            <% end %>
         <% end %>
 
 
