@@ -96,7 +96,6 @@ end
   end
 
   def tinder_logic
-
     @event = Event.find_by_id(params['event_id'].to_i)
 
       if params['like']
