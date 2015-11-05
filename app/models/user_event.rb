@@ -11,6 +11,7 @@ class UserEvent < ActiveRecord::Base
   	end
   end
 
+  # This method allows me to match myself with another facebook account
   def self.match_me
     UserEvent.create(user_id: 22, shown_user_id: 23, event_id: 1, liked: 'yes')
     UserEvent.create(user_id: 23, shown_user_id: 22, event_id: 1, liked: 'yes')
