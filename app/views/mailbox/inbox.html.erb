@@ -1,1 +1,28 @@
-<%= render partial: 'mailbox/folder_view', locals: { is_conversation: false, messages: @inbox } %>
+
+
+<% @inbox.each do |matches| %>
+   <% @conversations = matches.messages %>
+ 
+      <ul class="collapsible" data-collapsible="accordion" style="width:100%;">
+          <li>
+            <div class="collapsible-header" style="height:100px;"><img src="http://musictour.eu/data//uploads/media/albums/1278/020cfc18327292d7fda5332013d06d7a.jpg" style="width:150px;, height:150px;">   Liana La Havas   </div>
+            <div class="collapsible-body" style="background-color:white;">
+              <% @conversations.each do |convo| %>
+                  <% @convo = convo %>
+                  <%= render partial: 'conversations/messages', object: @convo, as: 'message' %>
+                  <br>
+                <%= form_for :message, url: reply_conversation_path(@convo.id) do |f| %>
+                  <div class="form-group">
+                    <%= f.text_area :body, placeholder: "Reply Message", rows: 4, class: "form-control" %>
+                    <%= f.submit "Reply", class: 'btn btn-danger pull-right' %>
+                  </div>
+                <% end %>
+                <br>
+              <% end %>
+            </div>
+          </li>
+      </ul>
+<% end %>
+
+
+ <!-- @conversation ||= mailbox.conversations.find(params[:id]) -->
