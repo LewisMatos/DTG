@@ -1,9 +1,13 @@
 <% if user_signed_in? %>
-  <li>
-  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
-  </li>
-<% else %>
-  <li>
-  <%= link_to('Admin Login', new_user_session_path)  %>  
-  </li>
+	<%= link_to( destroy_user_session_path, :method => :delete) do %>        
+
+	<li class=" icon fa fa-sign-out">
+		<span class="hint"> Logout </span> 
+	</li>
+<%end%>
+<%else%>
+  <%= link_to new_user_session_path do  %>  
+	<li class=" fa fa-cog fa-spin" style="font-size: 3em">
+	</li>
 <% end %>
+<%end%>
