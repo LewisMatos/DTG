@@ -15,7 +15,7 @@ User.create!([
 ])
 end
 
-User.create!([name: "admin", admin: true,password: "12345",email: "admin@admin.com"])
+User.create!([name: "admin", admin: true,password: "12345678",email: "admin@admin.com"])
 
 
 Event.create!([

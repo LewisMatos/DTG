@@ -38,11 +38,6 @@ ActiveRecord::Schema.define(version: 20151104182554) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "landing_pages", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
     t.integer "unsubscriber_id"
     t.string  "unsubscriber_type"
