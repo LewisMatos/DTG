@@ -1,4 +1,5 @@
 $(document).ready(function() {
+        event.preventDefault();
 	$.post("/events/all", function(html){
     	$("#event-page-style").html(html);
         	});
