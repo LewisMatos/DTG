@@ -8,6 +8,8 @@ $(document).ready(function(){
 
   $("#my-events-all").click(function(event){
       event.preventDefault(); 
+      $('.current').removeClass('current')
+      $('#my-events-all').addClass('current')
       $.post("/events/all", function(html){
         $("#event-page-style").html(html);
       });
@@ -15,6 +17,8 @@ $(document).ready(function(){
 
   $("#my-events-mine").click(function(event){
     event.preventDefault(); 
+    $('.current').removeClass('current')
+      $('#my-events-mine').addClass('current')
       $.post("/events/myevents", function(html){
           $("#event-page-style").html(html);
       });

@@ -97,14 +97,17 @@ end
 
   def tinder_logic
 
+      
     @event = Event.find_by_id(params['event_id'].to_i)
-
       if params['like']
         UserEvent.create( user_id: current_user.id, event_id: params["event_id"].to_i, shown_user_id: params["shown_user"].to_i, liked: params["like"])
       elsif params['pin_event']
         current_user.events << @event unless current_user.events.find_by_id(@event.id)
       end
-
+    if current_user.interested_in == nil
+      @no_profile = true
+      @message = "Please update your profile to continue"
+    else
     if current_user && current_user.events.include?(@event)
 
       @shown_user = current_user.get_user(@event)
@@ -117,6 +120,7 @@ end
     else
         @message = "Please pin event to continue."
     end
+  end
 
     render layout: false
 
