@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 	post '/events/myevents' => 'events#myevents'
   post '/events/all' => 'events#allevents'
 
-	devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+devise_for :users, :controllers => { :omniauth_callbacks => "callbacks",:registrations => "registrations"  }
 	
 	resources :events
 
