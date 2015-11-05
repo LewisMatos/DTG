@@ -20,7 +20,9 @@
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                       <h4> <%= link_to 'Pin Event', "#", id: "pin-event#{event.id}"%> </h4>
+                      <a target="_blank" href="<%=event.image%>">
                       <img src="<%=event.image%>" align="right" style="width:65px;height:65px; center no-repeat;">
+                      </a>
                       <h3 class="modal-title modal-event-title" style="top:2%;"><%=event.title%></h3>
                       </div> <!-- close modal head -->
                       <div class="modal-body">
@@ -31,7 +33,7 @@
                               <h5 class="modal-title"> <%=event.venue%></h5>
                             </div>
                             <div class="col-md-4">
-                              <h5 class="modal-title"><a href="<%=event.url%>">More Info</a></h5>                                           </div>
+                              <h5 class="modal-title"><a href="<%=event.url%>">More Info / RSVP</a></h5>                                           </div>
                               <div class="col-md-4">
                                 <!-- displays date in correct format -->
                                 <%=date=event.date.to_s%>
