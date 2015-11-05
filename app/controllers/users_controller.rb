@@ -39,7 +39,11 @@ class UsersController < ApplicationController
       end
     end
   end
-
+  
+  def hack
+    binding.pry
+    current_user.update()
+  end
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update

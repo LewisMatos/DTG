@@ -96,7 +96,6 @@ end
   end
 
   def tinder_logic
-
     @event = Event.find_by_id(params['event_id'].to_i)
       if params['like']
         UserEvent.create( user_id: current_user.id, event_id: params["event_id"].to_i, shown_user_id: params["shown_user"].to_i, liked: params["like"])

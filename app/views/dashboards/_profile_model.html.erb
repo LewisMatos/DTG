@@ -22,7 +22,7 @@
 
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
                 </div>
               </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -31,3 +31,17 @@
       </tr>
   </tbody>
 <%end%>
+
+
+<script type="text/javascript">
+var modalOriginId = 2
+  $('.update-user-shit').click(function(event){
+  modalOriginId = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.title.split('modal-tindering')[1]
+  });
+  $('.close').click(function(){
+  $.post("/events/tinder_logic", {"event_id" : Number(modalOriginId)
+                        }, function(html) {
+                          $('#modal-tindering' + modalOriginId).html(html);
+                        });
+  });
+</script>

@@ -53,6 +53,9 @@
     });
   }, 1010);
   });
+  $('.btn').click(function(event){
+    $(id='#myModal_<%=current_user.id%>').attr('title', event.target.parentNode.parentNode.parentNode.id);
+  });
 
 </script>
 

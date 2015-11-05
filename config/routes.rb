@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+  post '/users/hack' => 'users#hack'
   get 'userevents/create'
   get '/events/have-match' => 'events#have_match'
 	root 'dashboards#index'
