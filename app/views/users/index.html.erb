@@ -1,37 +1,49 @@
-<p id="notice"><%= notice %></p>
+<h1>Listing users</h1>
 
-<h1>Listing Users</h1>
-
-<table>
+<table class="usersAll">
   <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th>Show</th>
+    <th>Edit</th>
+    <th>Delete</th>
+    <th></th>
+    <th></th>
+  </tr>
   </thead>
 
-  <tbody>
-    <% @users.each do |user| %>
+  <tbody class="usersTable">
+  <% @users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
         <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td>
+          <%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{user.id}", 'data-toggle' => 'modal',:id => 'my-link'  %>
+          <div class="modal fade" id='<%= "myModal_#{user.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel"><%= "#{user.name}" %></h4>
+									<div id="userimage">
+									<%= image_tag(user.user_image) %>
+									</div>
+
+                </div>
+                <div class="modal-body">
+									<%= render 'users/form', user: user %>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 
-<br>
-<!--
-<%#= link_to 'New User', new_user_path %>
-<%# if user_signed_in? %>
-  <li>
-  <%#= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
-  </li>
-<%# else %>
-  <li>
-  <%#= link_to('Login', new_user_session_path)  %>  
-  </li>
-	<%# end %>
-	-->
