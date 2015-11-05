@@ -309,6 +309,9 @@ GEM
       rubyzip (~> 1.0)
       websocket (~> 1.0)
     shellany (0.0.1)
+    simple_form (3.2.0)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -391,6 +394,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   seed_dump
   selenium-webdriver
+  simple_form
   simplecov
   spring
   sqlite3
