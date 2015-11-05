@@ -102,6 +102,8 @@ end
         UserEvent.create( user_id: current_user.id, event_id: params["event_id"].to_i, shown_user_id: params["shown_user"].to_i, liked: params["like"])
       elsif params['pin_event']
         current_user.events << @event unless current_user.events.find_by_id(@event.id)
+      elsif params['unpin_event']
+        UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.first.destroy 
       end
     if current_user.interested_in == nil
       @no_profile = true
