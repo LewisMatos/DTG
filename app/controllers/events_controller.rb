@@ -8,6 +8,16 @@ class EventsController < ApplicationController
     @events = Event.all
   end
 
+  def myevents
+    @events = current_user.events.order('date').uniq 
+    render :events_index, layout: false 
+  end
+  def allevents
+    @events = Event.all.order('date')
+    render :events_index, layout: false
+  end
+
+
   # GET /events/1
   # GET /events/1.json
   def show

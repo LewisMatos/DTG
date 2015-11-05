@@ -1,0 +1,59 @@
+<%=@events.each_slice(3) do |event_row| %>
+              <div class="row">
+                <% event_row.each do |event| %>
+                <div class="col-md-4 homepage-event-image">
+                  <!-- image is a clickable link to modal of single event page -->
+                  <div class="info-box"><%= event.description %></div>
+                  <a href="#" class="event-link event-image" id="modal<%=event.id%>" data-toggle="modal" data-target="#largeModal<%=event.id%>"
+                    style="background: url(<%=event.image%>) center no-repeat; background-size: contain;
+                  "></a>
+                  <div class="info">
+                    <div class="more-info">
+                      <div class="event-title"><%= event.title %>. </div>
+                      <div class="event-time-date">
+                      <%= "#{event.date.to_s[5..6]}/#{event.date.to_s[8..9]}/#{event.date.to_s[0..3]} @#{event.time.split(' ')[1]}" %></div>
+                      <div class="pin-me-event"> <%= link_to 'Pin Event', "#", id:"pin-me-event#{event.id}" %></div>
+                    </div>
+                  </div>
+                  <!-- Modal -->
+                  <div class="modal fade" id="largeModal<%=event.id%>" tabindex="-1" role="dialog" data-width="760" data-backdrop="true">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h4> <%= link_to 'Pin Event', "#", id: "pin-event#{event.id}"%> </h4>
+                      <img src="<%=event.image%>" align="right" style="width:65px;height:65px; center no-repeat;">
+                      <h3 class="modal-title modal-event-title" style="top:2%;"><%=event.title%></h3>
+                      </div> <!-- close modal head -->
+                      <div class="modal-body">
+                        <!--first row: event info, time, then div with description-->
+                        <div class="container-fluid modal-event-info">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <h5 class="modal-title"> <%=event.venue%></h5>
+                            </div>
+                            <div class="col-md-4">
+                              <h5 class="modal-title"><a href="<%=event.url%>">More Info</a></h5>                                           </div>
+                              <div class="col-md-4">
+                                <!-- displays date in correct format -->
+                                <%=date=event.date.to_s%>
+                                <%=date="#{date[5..6]}/#{date[8..9]}/#{date[0..3]}"%>
+                                <h5 class="modal-title"> <%=date%></h5>
+                              </div>
+                            </div>
+                            <h5 class="modal-title"> <%=event.description%></h5>
+                          </div>
+                          </br>
+                          <!-- Tinder in modal -->
+                          <div class="container-fluid modal-tindering" id="modal-tindering<%=event.id%>" style="background-size: 250px 250px; height:300px; color:black;">
+                            
+                          </div>
+                          <!-- end tinder div -->
+                          <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end modal -->
+                    </div>
+                    <% end %>
+                  </div>
+                  <%end%>

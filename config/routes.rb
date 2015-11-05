@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get '/events/have-match' => 'events#have_match'
 	root 'dashboards#index'
 	
-	
+	post '/events/myevents' => 'events#myevents'
+  post '/events/all' => 'events#allevents'
+
 	devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 	
 	resources :events
