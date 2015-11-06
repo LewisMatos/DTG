@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   end
 
   def myevents
-    @events = current_user.events.order('date').uniq 
+    @events = Event.find_by_sql("select * from events where events.id not in (select user_events.event_id from user_events where user_events.user_id = #{current_user.id} and user_events.liked != 'yes' and user_events.liked != 'no') and events.id in (select user_events.event_id from user_events where user_events.user_id = #{current_user.id}) order by events.date")
     render :events_index, layout: false 
   end
   def allevents
