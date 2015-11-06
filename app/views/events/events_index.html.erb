@@ -96,14 +96,18 @@
                       $('[id*="pin-me-event"]').click(function(event){
                         event.preventDefault();
                         $.post("/events/pin-event", {"event_id" : Number(event.target.id.split('pin-me-event')[1]), 'pin_event' : true
-                        }, function() {
+                        }, function(data) {
                           var elem = $('#pin-event' + event.target.id.split('pin-me-event')[1]);
-                          if(elem.text()=='Unpin Event'){
-                            elem.text('Pin Event');
+                          if(data.event_pinned == true) {
+                            if(elem.text()=='Unpin Event'){
+                              elem.text('Pin Event');
+                            } else {
+                              elem.text('Unpin Event');
+                              alert('Event Pinned!');
+                            };
                           } else {
-                            elem.text('Unpin Event');
+                            alert('Event Already Pinned!');
                           };
-                          alert('Event Pinned!');
                         });
-                      })
+                      });
                   </script>

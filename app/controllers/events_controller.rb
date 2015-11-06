@@ -91,9 +91,14 @@ class EventsController < ApplicationController
     # when a user clicks the pin event button, this will find that event, (the id is passed in the route)
     # and will add them to the users list of events/user_events table, unless that user has already pinned the event
     # it redirects back to the events page
-    event = Event.find_by_id(params["event_id"].to_i) 
-    UserEvent.create(event_id: event.id, user_id: current_user.id)
-    render nothing: true
+    event = Event.find_by_id(params["event_id"].to_i)
+    if UserEvent.all.select{ |e| e.event_id == event.id && e.user_id == current_user.id && e.liked == nil}.length > 0
+      data = {"event_pinned" => false}
+    else
+      UserEvent.create(event_id: event.id, user_id: current_user.id)
+      data = {"event_pinned" => true}
+    end
+    render json: data
   end
 
   def tinder_logic
