@@ -37,11 +37,12 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-if current_user.admin?
+	if current_user.admin?
     @event = Event.new
-end
-  end
-
+	else
+	render :file => "#{Rails.root}/public/not_found.html"
+	end
+	end
   # GET /events/1/edit
   def edit
   end

@@ -12,9 +12,9 @@
     <% end %>
 	<%= f.input :name, :readonly => true%>
 	<%= f.input :age, input_html: { min: '18', max:'60', step: 'any' }%>
-	<%= f.input :gender, :label => "Sex", :collection => ['Male', 'Female'],:selected => "male" %>
+	<%= f.input :gender, :label => "Sex", :collection => ['Male', 'Female'] %>
 	<%= f.input :instagram_url%>			
-	<%= f.input :interested_in, :label => "Interested in?", :collection => ['Male', 'Female'],:selected => "male" %>
+	<%= f.input :interested_in, :label => "Interested in?", :collection => ['Male', 'Female']%>
 	<%= f.input :bio, as: :text %> 
 
 		<button type="input" class="btn btn-primary actions update-user-shit" name="commit" value="Submit">Update User</button>
