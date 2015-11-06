@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  
   get 'userevents/create'
   get '/events/have-match' => 'events#have_match'
 	root 'dashboards#index'
 	
-	
-	devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+	post '/events/myevents' => 'events#myevents'
+  post '/events/all' => 'events#allevents'
+
+devise_for :users, :controllers => { :omniauth_callbacks => "callbacks",:registrations => "registrations"  }
 	
 	resources :events
 

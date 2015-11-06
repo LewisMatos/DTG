@@ -1,32 +1,38 @@
-	$(document).ready(function(){
+$(document).ready(function(){
 
-  $('.event-link').click(function(event){
-    $.post("/events/tinder_logic", {"event_id" : Number(event.target.id.split('modal')[1])
-  }, function(html) {
-    $('#modal-tindering' + event.target.id.split('modal')[1]).html(html);
+  // click events to 
+  $.post("/events/all", function(html){
+    $("#event-page-style").html(html);
   });
-}); 
 
-$('[id*="pin-event"]').click(function(event){
-    event.preventDefault();
-    $.post("/events/tinder_logic", {"event_id" : Number(event.target.id.split('pin-event')[1]), 'pin_event' : true
-  }, function(html) {
-    $('#modal-tindering' + event.target.id.split('pin-event')[1]).html(html);
+
+  $("#my-events-all").click(function(event){
+      event.preventDefault(); 
+      $('.current').removeClass('current')
+      $('#my-events-all').addClass('current')
+      $.post("/events/all", function(html){
+        $("#event-page-style").html(html);
+      });
   });
-}); 
 
-
-$('[id*="pin-me-event"]').click(function(event){
-  event.preventDefault();
-  $.post("/events/pin-event", {"event_id" : Number(event.target.id.split('pin-me-event')[1]), 'pin_event' : true
-  }, function() {
-    alert('Event Pinned!');
+  $("#my-events-mine").click(function(event){
+    event.preventDefault(); 
+    $('.current').removeClass('current')
+      $('#my-events-mine').addClass('current')
+      $.post("/events/myevents", function(html){
+          $("#event-page-style").html(html);
+      });
   });
-})
+
+  $("#dos").click(function(event){
+    $.post("/events/all", function(html){
+      $("#event-page-style").html(html);
+    });
+  });   
 
 
-
-setInterval(function(){
+  // function to check for people who have matched you.
+  setInterval(function(){
     $.get('/events/have-match', function(data){
       if(data.matches) {
         $.each(data.matches, function(index, value){
@@ -34,9 +40,7 @@ setInterval(function(){
         });
       };
     });
-}, 5000);
-
-
+  }, 60000);
 
 });
 

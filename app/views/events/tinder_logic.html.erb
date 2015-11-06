@@ -1,30 +1,109 @@
-        <% if @shown_user && !@shown_user[1] %>
-            <%= link_to "Left", "#", id: 'no'%>
+<% if @shown_user && !@shown_user[1] %>
 
-             <%= link_to "Right", "#", id: 'yes' %><br>
+  <h1> something</h1>
+  <%= link_to "Left", "#", id: 'no'%>
+  <%= link_to "Right", "#", id: 'yes' %><br>
+  <br>
+  </br>
+  <%= image_tag(@shown_user_image, :class =>"tinder_modal_image", :id => "tinder-modal-image") %>
+  <%= link_to "#{@shown_user[0].name}", "/users/#{@shown_user[0].id}" %><br>
+<% elsif @shown_user %>
+  <h4 class="modal-title">You are matched with <%=@shown_user[0].name%>!</h4>
+  <%= image_tag(@shown_user_image, :class =>"tinder_modal_image") %><br>	
+<% else %>
+  <% @shown_user = [current_user] %>	
+	<p class="modal-title" style="height:100%;"><%=@message%></p>
+	<% if @no_profile %>
+	<p class="btn">
+	<a href="#" class="profile event-link event-image " id="#myModal_<%=current_user.id%>" data-target="#myModal_<%=current_user.id%>" data-toggle="modal"
+			><li class="btn" id="cuatro"><span class="btn btn-primary">Profile </span></li></a>
+  
+		</p>
+<% end %>
+<% end %>
 
-            
-            <%= image_tag(@shown_user_image) %>
+<script type="text/javascript">
+  $('#no').click(function(event) {
+    event.preventDefault();
+    // $('#no').attr('id', 'swipe-left');
+    $('#tinder-modal-image').attr('id', 'swipe-left');
+    setTimeout(function(){
 
-            <%= link_to "#{@shown_user[0].name}", "/users/#{@shown_user[0].id}" %><br>
-        <% elsif @shown_user %>
-          	<h4 class="modal-title">You are matched with <%=@shown_user[0].name%>!</h4>
-           	<%= image_tag(@shown_user_image) %><br>	
-        <% else %>
-        <% @shown_user = [current_user] %>
-            <p class="modal-title" style="height:100%;"><%=@message%></p>
-        <% end %>
+    $.post("/events/tinder_logic", {
+      "event_id" : Number(event.target.parentElement.id.split('modal-tindering')[1]),
+      "like" : event.target.id,
+      "shown_user" : <%= @shown_user[0].id %> 
+    }, function(html) {
+      $('#modal-tindering' + event.target.parentElement.id.split('modal-tindering')[1]).html(html);
+    });
+  }, 1010);
+  });
 
+  $('#yes').click(function(event) {
+    event.preventDefault();
+    // $('#yes').attr('id', 'swipe-right');
+    $('#tinder-modal-image').attr('id', 'swipe-right');
+    setTimeout(function(){
+    $.post("/events/tinder_logic", {
+      "event_id" : Number(event.target.parentElement.id.split('modal-tindering')[1]),
+      "like" : event.target.id,
+      "shown_user" : <%= @shown_user[0].id %> 
+    }, function(html) {
+      $('#modal-tindering' + event.target.parentElement.id.split('modal-tindering')[1]).html(html);
+    });
+  }, 1010);
+  });
+  $('.btn').click(function(event){
+    $(id='#myModal_<%=current_user.id%>').attr('title', event.target.parentNode.parentNode.parentNode.id);
+  });
 
-        <script type="text/javascript">
-            $('#no, #yes').click(function(event) {
-              event.preventDefault();
-              $.post("/events/tinder_logic", {
-                "event_id" : Number(event.target.parentElement.id.split('modal-tindering')[1]),
-                "like" : event.target.id,
-                "shown_user" : <%= @shown_user[0].id %> 
-              }, function(html) {
-              	$('#modal-tindering' + event.target.parentElement.id.split('modal-tindering')[1]).html(html);
-              });
-            });
-        </script>
+</script>
+
+<style>
+.tinder_modal_image {
+  display:block;
+  margin: auto;
+}
+
+#swipe-left {
+    -webkit-animation: swipe-left 1s forwards;
+            animation: swipe-left 1s forwards;
+}
+
+#swipe-right {
+    -webkit-animation: swipe-right 1s forwards;
+            animation: swipe-right 1s forwards;
+}
+
+@-webkit-keyframes swipe-left {
+    to {
+        -webkit-transform: rotate(-13deg) translate3d(-100%, 0, 0);
+                transform: rotate(-13deg) translate3d(-100%, 0, 0);
+        opacity: 0;
+    }
+}
+
+@keyframes swipe-left {
+    to {
+        -webkit-transform: rotate(-13deg) translate3d(-100%, 0, 0);
+                transform: rotate(-13deg) translate3d(-100%, 0, 0);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes swipe-right {
+    to {
+        -webkit-transform: rotate(13deg) translate3d(100%, 0, 0);
+                transform: rotate(13deg) translate3d(100%, 0, 0);
+        opacity: 0;
+    }
+}
+
+@keyframes swipe-right {
+    to {
+        -webkit-transform: rotate(13deg) translate3d(100%, 0, 0);
+                transform: rotate(13deg) translate3d(100%, 0, 0);
+        opacity: 0;
+    }
+}
+</style>
