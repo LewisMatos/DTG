@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
 	before_action :auth_user
 	
-	before_action :set_event, only: [:show, :edit, :update, :destroy, :unpin_event]
+	# before_action :set_event, only: [:show, :edit, :update, :destroy]
   # GET /events
   # GET /events.json
   def index
@@ -100,9 +100,13 @@ end
       if params['like']
         UserEvent.create( user_id: current_user.id, event_id: params["event_id"].to_i, shown_user_id: params["shown_user"].to_i, liked: params["like"])
       elsif params['pin_event']
-        current_user.events << @event unless current_user.events.find_by_id(@event.id)
+        if current_user.events.find_by_id(@event.id)
+          render :nothing
+        else
+          current_user.events << @event unless current_user.events.find_by_id(@event.id)
+        end
       elsif params['unpin_event']
-        UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.first.destroy 
+        UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.first.destroy || nil
       end
     if current_user.interested_in == nil
       @no_profile = true
@@ -152,9 +156,9 @@ end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.find(params[:id])
-    end
+    # def set_event
+    #   @event = Event.find(params[:id])
+    # end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params

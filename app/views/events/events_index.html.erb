@@ -66,6 +66,8 @@
                   <%end%>
 
                   <script type="text/javascript">
+
+
                       // click events to trigger modals and modal updates
                       $('.event-link').click(function(event){
                         $.post("/events/tinder_logic", {"event_id" : Number(event.target.id.split('modal')[1])
@@ -78,15 +80,20 @@
                         event.preventDefault();
                           $.post("/events/tinder_logic", {"event_id" : Number(event.target.id.split('pin-event')[1]), 'pin_event' : true
                         }, function(html) {
-                          $('#modal-tindering' + event.target.id.split('pin-event')[1]).html(html);
-                        });
+                          var modalPinId = event.target.id.split('pin-event')[1]
+                          $('#modal-tindering' + modalPinId).html(html);
+                          $('#pin-event' + modalPinId).attr('id', 'unpin-event' + modalPinId).text('Unpin Event');
+                         });
                       }); 
 
                        $('[id*="unpin-event"]').click(function(event){
                         event.preventDefault();
+                        debugger
                           $.post("/events/tinder_logic", {"event_id" : Number(event.target.id.split('unpin-event')[1]), 'unpin_event' : true
                         }, function(html) {
-                          location.reload();
+                          var modalPinId = event.target.id.split('unpin-event')[1]
+                          $('#modal-tindering' + modalPinId).html(html);
+                          $('#unpin-event' + modalPinId).attr('id', 'pin-event' + modalPinId).text('Pin Event');
                         });
                       }); 
 
