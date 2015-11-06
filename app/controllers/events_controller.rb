@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
 	before_action :auth_user
 	
-	before_action :set_event, only: [:show, :edit, :update, :destroy, :unpin_event]
+	# before_action :set_event, only: [:show, :edit, :update, :destroy]
   # GET /events
   # GET /events.json
   def index
@@ -101,15 +101,17 @@ class EventsController < ApplicationController
       if params['like']
         UserEvent.create( user_id: current_user.id, event_id: params["event_id"].to_i, shown_user_id: params["shown_user"].to_i, liked: params["like"])
       elsif params['pin_event']
-        current_user.events << @event unless current_user.events.find_by_id(@event.id)
-      elsif params['unpin_event']
-        UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.first.destroy 
+        if UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.length > 0
+          UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.first.destroy
+        else
+          UserEvent.create(event_id: @event.id, user_id: current_user.id)
+        end
       end
     if current_user.interested_in == nil
       @no_profile = true
       @message = "Please update your profile to continue"
     else
-    if current_user && current_user.events.include?(@event)
+    if current_user && UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.length > 0
 
       @shown_user = current_user.get_user(@event)
       if !@shown_user
@@ -153,9 +155,9 @@ class EventsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.find(params[:id])
-    end
+    # def set_event
+    #   @event = Event.find(params[:id])
+    # end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params

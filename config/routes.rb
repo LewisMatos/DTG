@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
+  post '/events/tinder_logic' => 'events#tinder_logic'
   get 'userevents/create'
   get '/events/have-match' => 'events#have_match'
-	root 'dashboards#index'
-	
-	post '/events/myevents' => 'events#myevents'
+  root 'dashboards#index'
+  
+  post '/events/myevents' => 'events#myevents'
   post '/events/all' => 'events#allevents'
 
 devise_for :users, :controllers => { :omniauth_callbacks => "callbacks",:registrations => "registrations"  }
-	
-	resources :events
+  
+  resources :events
 
   post '/events/pin-event' => 'events#pin_event'
   
@@ -32,7 +33,6 @@ devise_for :users, :controllers => { :omniauth_callbacks => "callbacks",:registr
     end  
   end
   post "/users/:id/interested_in" => 'users#interested_in'
-  post '/events/tinder_logic' => 'events#tinder_logic'
 
 
 
