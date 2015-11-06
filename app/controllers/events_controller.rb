@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   end
 
   def myevents
-    @events = current_user.events.order('date').uniq 
+    @events = Event.find_by_sql("select * from events where events.id in (select user_events.event_id from user_events where user_events.user_id = #{current_user.id} and user_events.id not in (select user_events.id from user_events where user_events.user_id = #{current_user.id} and user_events.liked = 'yes' or user_events.liked = 'no')) order by events.date")
     render :events_index, layout: false 
   end
   def allevents
@@ -91,9 +91,14 @@ class EventsController < ApplicationController
     # when a user clicks the pin event button, this will find that event, (the id is passed in the route)
     # and will add them to the users list of events/user_events table, unless that user has already pinned the event
     # it redirects back to the events page
-    event = Event.find_by_id(params["event_id"].to_i) 
-    current_user.events << event unless current_user.events.find_by_id(event.id)
-    render nothing: true
+    event = Event.find_by_id(params["event_id"].to_i)
+    if UserEvent.all.select{ |e| e.event_id == event.id && e.user_id == current_user.id && e.liked == nil}.length > 0
+      data = {"event_pinned" => false}
+    else
+      UserEvent.create(event_id: event.id, user_id: current_user.id)
+      data = {"event_pinned" => true}
+    end
+    render json: data
   end
 
   def tinder_logic
@@ -102,7 +107,7 @@ class EventsController < ApplicationController
         UserEvent.create( user_id: current_user.id, event_id: params["event_id"].to_i, shown_user_id: params["shown_user"].to_i, liked: params["like"])
       elsif params['pin_event']
         if UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.length > 0
-          UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.first.destroy
+          UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.each{|e| e.destroy}
         else
           UserEvent.create(event_id: @event.id, user_id: current_user.id)
         end
