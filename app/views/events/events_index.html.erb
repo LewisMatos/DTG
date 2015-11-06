@@ -19,7 +19,7 @@
                   <div class="modal fade" id="largeModal<%=event.id%>" tabindex="-1" role="dialog" data-width="760" data-backdrop="true">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                      <% if current_user.events.include?(event) %>
+                      <% if UserEvent.all.select{ |e| e.event_id == event.id && e.user_id == current_user.id && e.liked == nil}.length > 0 %>
                         <h4> <%= link_to 'Unpin Event', "#", id: "pin-event#{event.id}"%> </h4>
                         <a target="_blank" href="<%=event.image%>">
                       <% else %>
