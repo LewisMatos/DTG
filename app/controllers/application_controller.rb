@@ -20,7 +20,6 @@ class ApplicationController < ActionController::Base
   end
 
   def conversation
-    binding.pry
     @conversation ||= mailbox.conversations.find(params[:id])
   end
 
