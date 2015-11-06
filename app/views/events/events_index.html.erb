@@ -86,6 +86,11 @@
                           elem.attr('id', 'pin-event' + modalPinId)
                           if(elem.text()=='Unpin Event'){
                             elem.text('Pin Event');
+                            if($('#my-events-mine').hasClass('current')) {
+                              $.post("/events/myevents", function(html){
+                                $("#event-page-style").html(html);
+                              });
+                            };
                           } else {
                             elem.text('Unpin Event');
                           };

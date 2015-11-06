@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   end
 
   def myevents
-    @events = Event.find_by_sql("select * from events where events.id not in (select user_events.event_id from user_events where user_events.user_id = #{current_user.id} and user_events.liked != 'yes' and user_events.liked != 'no') and events.id in (select user_events.event_id from user_events where user_events.user_id = #{current_user.id}) order by events.date")
+    @events = Event.find_by_sql("select * from events where events.id in (select user_events.event_id from user_events where user_events.user_id = #{current_user.id}) and events.id not in (select user_events.event_id from user_events where user_events.user_id = #{current_user.id} and user_events.liked = 'yes' or user_events.liked = 'no') order by events.date")
     render :events_index, layout: false 
   end
   def allevents
@@ -107,7 +107,7 @@ class EventsController < ApplicationController
         UserEvent.create( user_id: current_user.id, event_id: params["event_id"].to_i, shown_user_id: params["shown_user"].to_i, liked: params["like"])
       elsif params['pin_event']
         if UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.length > 0
-          UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.first.destroy
+          UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.each{|e| e.destroy}
         else
           UserEvent.create(event_id: @event.id, user_id: current_user.id)
         end
