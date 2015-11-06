@@ -20,7 +20,7 @@
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                       <% if current_user.events.include?(event) %>
-                        <h4> <%= link_to 'Unpin Event', "#", id: "unpin-event#{event.id}"%> </h4>
+                        <h4> <%= link_to 'Unpin Event', "#", id: "pin-event#{event.id}"%> </h4>
                         <a target="_blank" href="<%=event.image%>">
                       <% else %>
                         <h4> <%= link_to 'Pin Event', "#", id: "pin-event#{event.id}"%> </h4>
@@ -81,20 +81,15 @@
                           $.post("/events/tinder_logic", {"event_id" : Number(event.target.id.split('pin-event')[1]), 'pin_event' : true
                         }, function(html) {
                           var modalPinId = event.target.id.split('pin-event')[1]
+                          var elem = $('#pin-event' + modalPinId);
                           $('#modal-tindering' + modalPinId).html(html);
-                          $('#pin-event' + modalPinId).attr('id', 'unpin-event' + modalPinId).text('Unpin Event');
+                          elem.attr('id', 'pin-event' + modalPinId)
+                          if(elem.text()=='Unpin Event'){
+                            elem.text('Pin Event');
+                          } else {
+                            elem.text('Unpin Event');
+                          };
                          });
-                      }); 
-
-                       $('[id*="unpin-event"]').click(function(event){
-                        event.preventDefault();
-                        debugger
-                          $.post("/events/tinder_logic", {"event_id" : Number(event.target.id.split('unpin-event')[1]), 'unpin_event' : true
-                        }, function(html) {
-                          var modalPinId = event.target.id.split('unpin-event')[1]
-                          $('#modal-tindering' + modalPinId).html(html);
-                          $('#unpin-event' + modalPinId).attr('id', 'pin-event' + modalPinId).text('Pin Event');
-                        });
                       }); 
 
 

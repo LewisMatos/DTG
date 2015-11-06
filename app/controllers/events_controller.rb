@@ -100,19 +100,17 @@ end
       if params['like']
         UserEvent.create( user_id: current_user.id, event_id: params["event_id"].to_i, shown_user_id: params["shown_user"].to_i, liked: params["like"])
       elsif params['pin_event']
-        if current_user.events.find_by_id(@event.id)
-          render :nothing
+        if UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.length > 0
+          UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.first.destroy
         else
-          current_user.events << @event unless current_user.events.find_by_id(@event.id)
+          UserEvent.create(event_id: @event.id, user_id: current_user.id)
         end
-      elsif params['unpin_event']
-        UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.first.destroy || nil
       end
     if current_user.interested_in == nil
       @no_profile = true
       @message = "Please update your profile to continue"
     else
-    if current_user && current_user.events.include?(@event)
+    if current_user && UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.length > 0
 
       @shown_user = current_user.get_user(@event)
       if !@shown_user
