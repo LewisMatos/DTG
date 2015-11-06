@@ -92,7 +92,7 @@ class EventsController < ApplicationController
     # and will add them to the users list of events/user_events table, unless that user has already pinned the event
     # it redirects back to the events page
     event = Event.find_by_id(params["event_id"].to_i) 
-    current_user.events << event unless current_user.events.find_by_id(event.id)
+    UserEvent.create(event_id: event.id, user_id: current_user.id)
     render nothing: true
   end
 
