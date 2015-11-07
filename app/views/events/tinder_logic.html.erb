@@ -1,6 +1,12 @@
 <% if @shown_user && !@shown_user[1] %>
 
   <h1> something</h1>
+  <div class="swipe-icons">
+  <a href="#" id='no' style="display:block; background: url(/assets/tinderX.jpg) center no-repeat; height:75px; width:75px; background-style:cover;"></a>
+  </div>
+  <br></br>
+
+
   <%= link_to "Left", "#", id: 'no'%>
   <%= link_to "Right", "#", id: 'yes' %><br>
   <br>
