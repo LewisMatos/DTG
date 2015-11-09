@@ -1,9 +1,24 @@
 # User.create!([
 #   {name: "Lewis Z Matos", age: nil, gender: "male", image: "http://graph.facebook.com/1485775778392162/picture", cover: "https://scontent.xx.fbcdn.net/hphotos-xap1/t31.0-8/s720x720/906044_1455612988075108_7604148912649146806_o.jpg", email: "lewm20@gmail.com", encrypted_password: "$2a$10$QwkThQ5MVGIReySdkldtNu3kRYNDxYM.RE/G3UwfsSok5Lss3Aavy", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 3, current_sign_in_at: "2015-10-22 15:35:49", last_sign_in_at: "2015-10-22 15:08:46", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", provider: "facebook", uid: "1485775778392162"}
 # ])
+
+#bio data taken from http://laurenhallden.com/datingipsum/
+girl_bio = []
+guy_bio = []
+File.open("#{Rails.root}/public/seed_data/dtg_girl_bio_semi.csv") do |row|
+  row.read.each_line do |line|
+    girl_bio << line 
+  end
+end
+File.open("#{Rails.root}/public/seed_data/dtg_guy_bio_semi.csv") do |row|
+  row.read.each_line do |line|
+    guy_bio << line 
+  end
+end
+bio = [girl_bio, guy_bio]
 turn_two = 0
 turn = 0
-20.times do |i|
+28.times do |i|
 	turn_two += turn
   turn = i % 2
 	male_images = Dir.glob("#{Rails.root}/app/assets/images/stock_images/male/*.jpg")
@@ -11,7 +26,7 @@ turn = 0
   male_female_images = [female_images,male_images]
   array = [FactoryHelper::Name.female_first_name,FactoryHelper::Name.male_first_name]
 User.create!([
-	{name: array[turn], age: rand(20..50), gender: ["female","male"][turn], image: male_female_images[turn][turn_two].split('/images/')[1], cover: "https://scontent.xx.fbcdn.net/hphotos-xap1/t31.0-8/s720x720/906044_1455612988075108_7604148912649146806_o.jpg", email: FactoryHelper::Internet.email(array[turn]),password: Devise.friendly_token[0,20], reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 3, current_sign_in_at: "2015-10-22 15:35:49", last_sign_in_at: "2015-10-22 15:08:46", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", provider: "facebook", uid: FactoryHelper::Internet.password(10)}
+	{name: array[turn], age: rand(20..50), gender: ["female","male"][turn], image: male_female_images[turn][turn_two].split('/images/')[1], cover: "https://scontent.xx.fbcdn.net/hphotos-xap1/t31.0-8/s720x720/906044_1455612988075108_7604148912649146806_o.jpg", bio: bio[turn].sample, email: FactoryHelper::Internet.email(array[turn]),password: Devise.friendly_token[0,20], reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 3, current_sign_in_at: "2015-10-22 15:35:49", last_sign_in_at: "2015-10-22 15:08:46", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", provider: "facebook", uid: FactoryHelper::Internet.password(10)}
 ])
 end
 
