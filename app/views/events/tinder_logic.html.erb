@@ -11,7 +11,7 @@
   <br>
 
 <% elsif @shown_user %>
-  <h2 id="shown-user-name-tinder">You are matched with <%=@shown_user[0].name%>!</h2>
+  <h2 id="shown-user-name-tinder">You matched with <%=@shown_user[0].name%>!</h2>
   <%= image_tag(@shown_user_image, :class =>"tinder_modal_image") %><br>	
 <% else %>
   <% @shown_user = [current_user] %>	
