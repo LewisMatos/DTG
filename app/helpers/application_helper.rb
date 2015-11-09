@@ -44,11 +44,11 @@ module ApplicationHelper
     Mailboxer::Receipt.count
   end
 
-#make sure that the inbox column is set to inbox for both users.
-#   def open_conversation 
-#     Mailboxer::Conversation.create(id: last_convo + 1, subjects: "You've been matched", created_at: Time.now, updated_at: Time.now)
-#     Mailboxer::Notification.create(id: last_notification + 1, type: "Mailboxer::Message", sender_id: 0, sender_type: "User", body: "", subject: "You've been matched", updated_at: Time.now, created_at: Time.now)
-#     Mailboxer::Receipt.create(id: last_receipt + 1, mailbox_type: "inbox", receiver_id: user_id, notification_id: last_notification )
-#   end
-# ("mailbox_type", "receiver_id", "receiver_type", "notification_id", "created_at", "updated_at"
+
+  def open_conversation 
+    Mailboxer::Conversation.create!(subjects: "You've been matched")
+    Mailboxer::Notification.create!(type: "Mailboxer::Message", sender_id: 0, sender_type: "User", body: "You've been matched", subject: "You've been matched")
+    Mailboxer::Receipt.create!(mailbox_type: "inbox", receiver_id: user_id, notification_id: last_notification)
+  end
+
 end
