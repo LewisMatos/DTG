@@ -1,0 +1,127 @@
+<br>
+<% if @shown_user && !@shown_user[1] %>
+  
+  <h2 id="shown-user-name-tinder"> <%= @shown_user[0].name %> </h2>
+
+  <%= image_tag(@shown_user_image, :class =>"tinder_modal_image", :id => "tinder-modal-image") %>
+  <div class="work-now">
+  <%= link_to image_tag("tinderX.jpg", :height => "50px"), "#", id: 'no' %>
+  <%= link_to image_tag("tinderHeart.jpg", :height => "50px"), "#", id: 'yes' %><br>      
+  </div>
+  <br>
+
+<% elsif @shown_user %>
+  <h2 id="shown-user-name-tinder">You are matched with <%=@shown_user[0].name%>!</h2>
+  <%= image_tag(@shown_user_image, :class =>"tinder_modal_image") %><br>	
+<% else %>
+  <% @shown_user = [current_user] %>	
+	<p class="update-profile-to-cont" style="height:100%;"><%=@message%></p>
+	<% if @no_profile %>
+	<p class="btn update-profile-to-cont">
+	<a href="#" class="profile event-link event-image " id="#myModal_<%=current_user.id%>" data-target="#myModal_<%=current_user.id%>" data-toggle="modal"
+			><li class="btn update-profile-to-cont" id="cuatro"><span class="btn btn-primary">Profile </span></li></a>
+  
+		</p>
+<% end %>
+<% end %>
+
+<script type="text/javascript">
+  $('#no').click(function(event) {
+    event.preventDefault();
+    // $('#no').attr('id', 'swipe-left');
+    $('#tinder-modal-image').attr('id', 'swipe-left');
+    setTimeout(function(){
+
+    $.post("/events/tinder_logic", {
+      "event_id" : Number(event.currentTarget.parentElement.parentElement.id.split('modal-tindering')[1]),
+      "like" : event.currentTarget.parentElement.parentElement.id,
+      "shown_user" : <%= @shown_user[0].id %> 
+    }, function(html) {
+      $('#modal-tindering' + event.currentTarget.parentElement.parentElement.id.split('modal-tindering')[1]).html(html);
+    });
+  }, 1010);
+  });
+
+  $('#yes').click(function(event) {
+    event.preventDefault();
+    // $('#yes').attr('id', 'swipe-right');
+    $('#tinder-modal-image').attr('id', 'swipe-right');
+    setTimeout(function(){
+    $.post("/events/tinder_logic", {
+      "event_id" : Number(event.currentTarget.parentElement.parentElement.id.split('modal-tindering')[1]),
+      "like" : event.currentTarget.id,
+      "shown_user" : <%= @shown_user[0].id %> 
+    }, function(html) {
+      $('#modal-tindering' + event.currentTarget.parentElement.parentElement.id.split('modal-tindering')[1]).html(html);
+    });
+  }, 1010);
+  });
+  $('.btn').click(function(event){
+    $(id='#myModal_<%=current_user.id%>').attr('title', event.target.parentNode.parentNode.parentNode.id);
+  });
+
+</script>
+
+<style>
+.update-profile-to-cont{
+  display:block;
+  margin:auto;
+  text-align:center;
+}
+#shown-user-name-tinder {
+  display:block;
+  margin:auto;
+  text-align: center;
+}
+.work-now{
+  display:block;
+  margin:auto;
+  text-align:center;
+}
+.tinder_modal_image {
+  display:block;
+  margin: auto;
+}
+
+#swipe-left {
+    -webkit-animation: swipe-left 1s forwards;
+            animation: swipe-left 1s forwards;
+}
+
+#swipe-right {
+    -webkit-animation: swipe-right 1s forwards;
+            animation: swipe-right 1s forwards;
+}
+
+@-webkit-keyframes swipe-left {
+    to {
+        -webkit-transform: rotate(-13deg) translate3d(-100%, 0, 0);
+                transform: rotate(-13deg) translate3d(-100%, 0, 0);
+        opacity: 0;
+    }
+}
+
+@keyframes swipe-left {
+    to {
+        -webkit-transform: rotate(-13deg) translate3d(-100%, 0, 0);
+                transform: rotate(-13deg) translate3d(-100%, 0, 0);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes swipe-right {
+    to {
+        -webkit-transform: rotate(13deg) translate3d(100%, 0, 0);
+                transform: rotate(13deg) translate3d(100%, 0, 0);
+        opacity: 0;
+    }
+}
+
+@keyframes swipe-right {
+    to {
+        -webkit-transform: rotate(13deg) translate3d(100%, 0, 0);
+                transform: rotate(13deg) translate3d(100%, 0, 0);
+        opacity: 0;
+    }
+}
+</style>

@@ -1,70 +1,48 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :pin_event, :unpin_event]
-
+	before_action :auth_user
+	
+	# before_action :set_event, only: [:show, :edit, :update, :destroy]
   # GET /events
   # GET /events.json
   def index
     @events = Event.all
   end
 
+  def myevents
+    @events = Event.find_by_sql("select * from events where events.id in (select user_events.event_id from user_events where user_events.user_id = #{current_user.id} and user_events.id not in (select user_events.id from user_events where user_events.user_id = #{current_user.id} and user_events.liked = 'yes' or user_events.liked = 'no')) order by events.date")
+    render :events_index, layout: false 
+  end
+  def allevents
+    @events = Event.all.order('date')
+    render :events_index, layout: false
+  end
+
+
   # GET /events/1
   # GET /events/1.json
   def show
 
-
-  # this is a sequel query which will eliminate the users who have liked you, and you have also liked.
-  # it will then filter out the same gender as you (should be change dto reflect your sexual preference)
-  # and will only find the users who have pinned this event.
-  my_matched_folk = %Q(
-    SELECT * FROM users WHERE users.id IN 
-    (SELECT also_likes_me.user_id FROM user_events INNER JOIN user_events AS also_likes_me
-      ON user_events.user_id = also_likes_me.shown_user_id 
-      AND also_likes_me.liked = 'yes' AND also_likes_me.event_id = #{@event.id} AND user_events.event_id = #{@event.id}
-      WHERE user_events.user_id = #{current_user.id} AND user_events.liked = 'yes' AND user_events.event_id = #{@event.id}) AND users.gender != "#{current_user.gender}" AND users.id IN (SELECT user_events.user_id FROM user_events 
-      WHERE user_events.event_id = #{@event.id})
-    )
-  
-  # this query will filter out any user you have liked or disliked, and is opposite gender and pinned this event.
-  folk_i_liked = %Q(
-    SELECT * FROM users WHERE users.id NOT IN
-    (SELECT user_events.shown_user_id FROM user_events 
-      WHERE user_events.user_id = #{current_user.id} AND liked != 'nil' AND user_events.event_id = #{@event.id})
-      AND users.id IN (SELECT users.id FROM users WHERE users.gender != "#{current_user.gender}") AND users.id IN (SELECT user_events.user_id FROM user_events 
-      WHERE user_events.event_id = #{@event.id})
-    )
-  
-  # this will run the query to filter out likes and dislikes.
-  tinder = User.find_by_sql(folk_i_liked)
-
-  # this will run the query to find your matches
-  matches = User.find_by_sql(my_matched_folk) 
-
-  # checks if there is a match. if so it will assign the @user variable to the match.
-  if matches.length > 0
-    @user = matches.first
-    @match = true
-  # if there is no match we will check if there are any users that you have not liked/disliked yet, if so will assign to @user.
-  else
-    if tinder.length > 0
-       @user = tinder.first
-     end
-   end
-  # will create a image var for the user, based on whether it's a facebook user, or our fake users. it uses a model method called .real. 
-  if @user
-    if @user.real
-      @user_image = @user.image + "?type=large"
+    if current_user && current_user.events.include?(@event)
+      @shown_user = current_user.get_user(@event)
+      if !@shown_user
+        @message = "There are no Users to display at this time."
+      else
+        @shown_user_image = @shown_user[0].user_image
+      end
     else
-      @user_image = @user.image[66..-1]
+        @message = "Please pin event to continue."
     end
-  end
 
   end
 
   # GET /events/new
   def new
+	if current_user.admin?
     @event = Event.new
-  end
-
+	else
+	render :file => "#{Rails.root}/public/not_found.html"
+	end
+	end
   # GET /events/1/edit
   def edit
   end
@@ -113,11 +91,62 @@ class EventsController < ApplicationController
     # when a user clicks the pin event button, this will find that event, (the id is passed in the route)
     # and will add them to the users list of events/user_events table, unless that user has already pinned the event
     # it redirects back to the events page
-    event = Event.find_by_id(params["id"]) 
-    current_user.events << event unless current_user.events.find_by_id(event.id)
-    redirect_to "/events"
+    event = Event.find_by_id(params["event_id"].to_i)
+    if UserEvent.all.select{ |e| e.event_id == event.id && e.user_id == current_user.id && e.liked == nil}.length > 0
+      data = {"event_pinned" => false}
+    else
+      UserEvent.create(event_id: event.id, user_id: current_user.id)
+      data = {"event_pinned" => true}
+    end
+    render json: data
   end
 
+  def tinder_logic
+    @event = Event.find_by_id(params['event_id'].to_i)
+      if params['like']
+        UserEvent.create( user_id: current_user.id, event_id: params["event_id"].to_i, shown_user_id: params["shown_user"].to_i, liked: params["like"])
+      elsif params['pin_event']
+        if UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.length > 0
+          UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.each{|e| e.destroy}
+        else
+          UserEvent.create(event_id: @event.id, user_id: current_user.id)
+        end
+      end
+    if current_user.interested_in == nil
+      @no_profile = true
+      @message = "Please update your profile to continue"
+    else
+    if current_user && UserEvent.all.select{ |e| e.event_id == @event.id && e.user_id == current_user.id && e.liked == nil}.length > 0
+
+      @shown_user = current_user.get_user(@event)
+      if !@shown_user
+        @message = "There are no Users to display at this time."
+      else
+        @shown_user_image = @shown_user[0].user_image
+      end
+
+    else
+        @message = "Please pin event to continue."
+    end
+  end
+
+    render layout: false
+
+  end
+
+  def have_match
+    matches = UserEvent.find_by_sql("select * from user_events where user_events.shown_user_id = #{current_user.id} and user_events.not_alerted = 'yes'")
+    if matches.length > 0
+      json = {matches: []}
+      matches.each do |match|
+      json[:matches] << {'name' => User.find(match.user_id).name, 'event' => Event.find(match.event_id).title  }
+      match.update(not_alerted: 'no')
+     end
+    else
+      json = { has_match: 'no'}
+    end
+    render :json => json
+  end
 
 
   def unpin_event
@@ -125,18 +154,18 @@ class EventsController < ApplicationController
     # this will remove the event from the users list of events and redirect to the users page.
     event = Event.find_by_id(params["id"]) 
     current_user.events.delete(event)
-    redirect_to "/users/#{current_user.id}"
+    redirect_to "/dashboards/index/#t2"
   end
 
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.find(params[:id])
-    end
+    # def set_event
+    #   @event = Event.find(params[:id])
+    # end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :venue, :street_number, :city, :sttate, :zip, :description, :url, :image, :category)
+      params.require(:event).permit(:title, :venue, :street_number, :city, :state, :zip, :description, :url, :image, :category)
     end
 end

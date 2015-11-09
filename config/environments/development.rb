@@ -1,4 +1,5 @@
 Rails.application.configure do
+  config.action_mailer.default_url_options = { :host => 'localhost' }
   config.assets.raise_production_errors = true
   # Settings specified here will take precedence over those in config/application.rb.
 

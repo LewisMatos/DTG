@@ -1,0 +1,17 @@
+<%= form_for :conversation, url: :conversations, html: { class: "" } do |f| %>
+    <div class="form-group">
+			<%= f.label :recipients %>
+			<%= f.select(:recipients, current_user.matched_user_events.collect {|p| ["Matched with (" +  p[0].name  + ") To -- " +  p[1].title , p[0].id]}, {}, { multiple: true , class: "chosen-select form-control" })%>
+    </div>
+    <div class="form-group">
+      <%= f.label :subject %>
+      <%= f.text_field :subject, placeholder: "Subject", class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :message %>
+      <%= f.text_area :body, class: 'form-control',placeholder: "Type your message here", rows: 4  %>
+    </div>
+
+    <%= f.submit "Send Message", class: "btn btn-success" %>
+
+<% end %>

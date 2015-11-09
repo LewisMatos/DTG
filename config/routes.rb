@@ -1,13 +1,41 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
-	resources :events
-
-  resources :users
+  post '/events/tinder_logic' => 'events#tinder_logic'
+  get 'userevents/create'
+  get '/events/have-match' => 'events#have_match'
+  root 'dashboards#index'
   
+  post '/events/myevents' => 'events#myevents'
+  post '/events/all' => 'events#allevents'
+
+devise_for :users, :controllers => { :omniauth_callbacks => "callbacks",:registrations => "registrations"  }
+  
+  resources :events
+
+  post '/events/pin-event' => 'events#pin_event'
+  
+  resources :users
+  post "/userevents" => "userevents#create"
   get '/users/:id/events' => 'users#my_events'  
   get '/events/:id/pin_event' => 'events#pin_event'
   get '/events/:id/unpin_event' => 'events#unpin_event'
   post "/events/:event_id/users/:user_id/tinder/:selection" => 'users#tinder'
+
+
+  get "mailbox/inbox" => "mailbox#inbox", as: :mailbox_inbox
+  get "mailbox/sent" => "mailbox#sent", as: :mailbox_sent
+  get "mailbox/trash" => "mailbox#trash", as: :mailbox_trash
+
+  resources :conversations do
+    member do
+      post :reply
+      post :trash
+      post :untrash
+    end  
+  end
+  post "/users/:id/interested_in" => 'users#interested_in'
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

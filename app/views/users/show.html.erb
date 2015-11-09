@@ -1,11 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <div id="userimage">
-	<% if @user.real %>
-		<%= image_tag(@user.image + "?type=large") %>
-	<% else %>
-	<%= image_tag(@user.image[66..-1])%>
-<% end %>
+		<%= image_tag(@user.user_image) %>
 </div>
 
 <p>
@@ -14,13 +10,27 @@
 </p>
 
 <p>
-  <strong>Email:</strong>
-  <%= @user.email %>
+  <strong>Gender:</strong>
+  <%= @user.gender %>
 </p>
 
 <p>
-  <strong>Gender:</strong>
-  <%= @user.gender %>
+  <strong>Age:</strong>
+  <%= @user.age %>
+</p>
+
+<p>
+  <strong>Bio:</strong>
+  <%= @user.bio %>
+</p>
+
+<p>
+  <strong>Instagram:</strong>
+  <%= @user.instagram_url %>
+</p>
+<p>
+  <strong>Interested In:</strong>
+  <%= @user.interested_in%>
 </p>
 
 <%= link_to 'My Events', "/users/#{@user.id}/events" %>

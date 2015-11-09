@@ -13,6 +13,10 @@
  *= require_tree ../../../vendor/assets/stylesheets/.
  *= require_tree .
  *= require_self
+ *= require chosen
+ //= require dashboards
+ //= require normalize
+ //= require _nav
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.eot"
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.woff"
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.ttf"
@@ -20,6 +24,10 @@
  */
 @import "bootstrap";
 /* Some Style from the Bootstrap Default Theme */
+
+@import "materialize";
+
+
 body {
   padding-top: 20px;
   padding-bottom: 30px;

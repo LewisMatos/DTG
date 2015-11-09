@@ -60,6 +60,7 @@ group :production do
 end
 
 gem 'bootstrap-sass', '~> 3.1.1'
+gem 'materialize-sass'
 
 
 #Faker creates fake data
@@ -72,3 +73,10 @@ gem "devise"
 gem 'therubyracer'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'mailboxer'
+gem 'chosen-rails'
+gem "compass-rails" 
+gem "figaro"
+gem 'mailgun-ruby', '~>1.0.3', require: 'mailgun'
+gem 'delayed_job_active_record'
+gem 'simple_form'

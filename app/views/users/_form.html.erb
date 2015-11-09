@@ -1,21 +1,21 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= simple_form_for current_user,remote:true do |f| %>
+    <% if current_user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% current_user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+	<%= f.input :name, :readonly => true%>
+	<%= f.input :age, input_html: { min: '18', max:'60', step: 'any' }%>
+	<%= f.input :gender, :label => "Sex", :collection => ['Male', 'Female'] %>
+	<%= f.input :instagram_url%>			
+	<%= f.input :interested_in, :label => "Interested in?", :collection => ['Male', 'Female']%>
+	<%= f.input :bio, as: :text %> 
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+		<button type="input" class="btn btn-primary actions update-user-shit" name="commit" value="Submit">Update User</button>
 <% end %>
