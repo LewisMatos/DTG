@@ -40,7 +40,7 @@ section {
 > p3 = Messages
 */
 #p1 {
-    left: 10%;
+    left: 7%;
     position: fixed;
 }
 
@@ -213,13 +213,13 @@ a {
     font-size: 10px;
 		position:fixed;
     bottom:0;
-    left:50%;
+    left:53%;
     margin-left:-200px; /*negative half the width */
     width:400px;
 }
 
 .credit a {
-    color: yellow;
+    color: white;
 }
 
 .homepage-event-image {
@@ -454,17 +454,16 @@ overflow-y: hidden;
 
 
 }
-
+.at-the-top {
+    padding-top:15px;
+}
 #my-events-all,
 #my-event-mine {
-    background-color:#ffd006;
-    margin-top: 5px;
-    margin-right: 15px;
-
+    margin-right: 10px;
 }
 
 #my-events-mine {
-
+    margin-left:10px;
 }
 
 .button-link {
@@ -501,11 +500,37 @@ overflow-y: hidden;
 }
 
 .current {
-    background: #356094;
+    background: #ffaa00;
     border: solid 1px #2A4E77;
     text-decoration: none;
 }
 
+.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open > .btn-success.dropdown-toggle {
+    color: #CFCECE;
+    background-color: #ffaa00;
+    border-color: #398439;
+}
+.btn:hover, .btn-large:hover, .btn:focus, .btn-large:focus {
+    color: #333;
+    text-decoration: none;
+    background-color: #ffaa00;
+}
+
+.btn:focus, .btn-large:focus, .btn:active:focus, .btn-large:active:focus, .btn.active:focus, .active.btn-large:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+button:focus {
+    outline: none;
+    background-color: #ffaa00;
+}
+.current {
+    background: #ffaa00;
+    border: solid 1px #2A4E77;
+    text-decoration: none;
+}
 
 </style>
 <div class="ct" id="t1">
@@ -542,8 +567,8 @@ overflow-y: hidden;
         <section>
           <div class="page" id="p2">
             <div class="at-the-top container-fluid" style="text-align:center; padding-right:13%">
-              <button class="button-link" id="my-events-all" style="display:inline-block;">All Events</button>
-              <button class="button-link" id="my-events-mine" style="display:inline-block;">My Events</button>
+              <button class="btn btn-success" id="my-events-all" style="display:inline-block; color:#666;">All Events</button>
+              <button class="btn btn-success" id="my-events-mine" style="display:inline-block; color:#666;">My Events</button>
             </div>
             <div class="container-fluid" id="event-page-style">          
             </div>
@@ -569,7 +594,7 @@ overflow-y: hidden;
 
             <!-- Footer -->
         <section>
-          <p class="credit"> &copy; Down 2 Go <a href="https://downtogo.com/">Made in Brooklyn</a></p>
+          <p class="credit"> &copy; DowntoGO <a href="https://downtogo.com/">Made in Brooklyn</a></p>
 </div>
 </div>
 </div>
