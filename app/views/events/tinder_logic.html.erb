@@ -1,14 +1,16 @@
-<br>
 <% if @shown_user && !@shown_user[1] %>
   
-	<h2 id="shown-user-name-tinder"> <%= @shown_user[0].name %> </h2>
+	<h2 id="shown-user-name-tinder"> <%=@shown_user[0].name%></h2>
 			<%=image_tag(@shown_user_image, :class =>"tinder_modal_image", :id => "tinder-modal-image")%>
   <div class="work-now">
   <%= link_to image_tag("tinderX.jpg", :height => "50px"), "#", id: 'no' %>
   <%= link_to image_tag("tinderHeart.jpg", :height => "50px"), "#", id: 'yes' %><br>      
   </div>
-  <br>
-
+  <br>  
+  <div class="tinder-bio">
+    <h4><%=@shown_user[0].age%></h4> 
+    <h5 style="margin-top:-15px;"><%=@shown_user[0].bio%></h5>
+  <div>
 <% elsif @shown_user %>
   <h2 id="shown-user-name-tinder">You matched with <%=@shown_user[0].name%>!</h2>
   <%= image_tag(@shown_user_image, :class =>"tinder_modal_image") %><br>	
@@ -62,6 +64,13 @@
 </script>
 
 <style>
+.tinder-bio {
+  display: block;
+  text-align: center;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: -13px;
+}
 .update-profile-to-cont{
   display:block;
   margin:auto;
@@ -76,12 +85,14 @@
   display:block;
   margin:auto;
   text-align:center;
+  margin-top: 10px;
+  margin-bottom: -5px;
 }
 .tinder_modal_image {
   display:block;
   margin: auto;
-  height: 150px;
-    width: 150px; 
+/*  height: 150px;
+    width: 150px; */
 		border-radius: 20%;
     display:block;
     margin:auto;
@@ -91,7 +102,7 @@
     -khtml-border-radius: 15%;  
     border-radius: 5%;
     width: auto;
-    max-height: 300px;
+    height: 300px;
     border:3px black;
 }
 
@@ -144,7 +155,7 @@
     -khtml-border-radius: 15%;  
     border-radius: 5%;
     width: auto;
-    max-height: 300px;
+    height: 300px;
     border:3px black;
 }
 </style>

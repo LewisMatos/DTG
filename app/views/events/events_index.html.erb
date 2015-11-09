@@ -26,7 +26,7 @@
                         <h4> <%= link_to 'Pin Event', "#", class:"btn btn-success", id: "pin-event#{event.id}"%> </h4>
                         <a target="_blank" href="<%=event.image%>">
                       <% end %>
-                      <img src="<%=event.image%>" align="right" style="width:65px;height:65px; center no-repeat;">
+                      <img src="<%=event.image%>" align="right" style="width:65px;height:65px; center no-repeat; margin-right:15px;">
                       </a>
                       <h3 class="modal-title modal-event-title" style="top:2%;"><%=event.title%></h3>
                       </div> <!-- close modal head -->
@@ -35,15 +35,15 @@
                         <div class="container-fluid modal-event-info">
                           <div class="row">
                             <div class="col-md-4">
-                              <h5 class="modal-title"> <%=event.venue%></h5>
+                              <h5 class="modal-top-descr"> <%=event.venue%></h5>
                             </div>
                             <div class="col-md-4">
-                              <h5 class="modal-title"><a href="<%=event.url%>">More Info / RSVP</a></h5>                                           </div>
+                              <h5 class="modal-top-descr"><a href="<%=event.url%>">More Info / RSVP</a></h5>                                           </div>
                               <div class="col-md-4">
                                 <!-- displays date in correct format -->
-                                <%=date=event.date.to_s%>
-                                <%=date="#{date[5..6]}/#{date[8..9]}/#{date[0..3]}"%>
-                                <h5 class="modal-title"> <%=date%></h5>
+                                <%date=event.date.to_s%>
+                                <%date="#{date[5..6]}/#{date[8..9]}/#{date[0..3]}"%>
+                                <h5 class="modal-top-descr"> <%=date%></h5>
                               </div>
                             </div>
                             <h5 class="modal-title"> <%=event.description%></h5>
