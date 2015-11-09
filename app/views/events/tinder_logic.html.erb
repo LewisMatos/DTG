@@ -16,9 +16,9 @@
   <% @shown_user = [current_user] %>	
 	<p class="update-profile-to-cont" style="height:100%;"><%=@message%></p>
 	<% if @no_profile %>
-	<p class="btn update-profile-to-cont">
+	<p class="update-profile-to-cont">
 	<a href="#" class="profile event-link event-image " id="#myModal_<%=current_user.id%>" data-target="#myModal_<%=current_user.id%>" data-toggle="modal"
-			><li class="btn update-profile-to-cont" id="cuatro"><span class="btn btn-primary">Profile </span></li></a>
+			><li class="update-profile-to-cont" id="cuatro"><span class="btn" style="background-color:yellow; color:black;">Profile </span></li></a>
   
 		</p>
 <% end %>
@@ -78,13 +78,27 @@
   text-align:center;
 }
 .tinder_modal_image {
+<<<<<<< HEAD
   display:block;
   margin: auto;
 height: 150px;
     width: 150px; 
 		border-radius: 20%;
 		overflow:hidden;
+=======
+    display:block;
+    margin:auto;
+    padding: 0;
+     -webkit-border-radius: 15%;
+    -moz-border-radius: 15%;
+    -khtml-border-radius: 15%;  
+    border-radius: 5%;
+    width: auto;
+    max-height: 300px;
+    border:3px black;
+>>>>>>> 4a079e64875c07f18d8202d0972b60a46331576e
 }
+
 
 #swipe-left {
     -webkit-animation: swipe-left 1s forwards;
@@ -129,13 +143,12 @@ height: 150px;
 }
 #tinder-modal-image {
     padding: 0;
-     -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -khtml-border-radius: 50%;  
-    border-radius: 20%;
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-border:5px solid yellow;
+     -webkit-border-radius: 15%;
+    -moz-border-radius: 15%;
+    -khtml-border-radius: 15%;  
+    border-radius: 5%;
+    width: auto;
+    max-height: 300px;
+    border:3px black;
 }
 </style>

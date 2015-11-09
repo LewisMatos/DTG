@@ -207,15 +207,17 @@ a {
 
 .credit {
     position: absolute;
-    bottom: 0;
-    width: 100%;
     text-align: center;
     font-size: 10px;
-    padding-right: 13%;
+		position:fixed;
+    bottom:0;
+    left:50%;
+    margin-left:-200px; /*negative half the width */
+    width:400px;
 }
 
 .credit a {
-    color: #fff;
+    color: yellow;
 }
 
 .homepage-event-image {
@@ -407,6 +409,7 @@ body.modal-open,.modal-open .navbar-fixed-top,.modal-open .navbar-fixed-bottom {
 overflow-y: hidden;
 }
 .profile.event-link{
+	background-color:transparent;
 	height:auto;
 	width:auto;
 }

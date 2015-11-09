@@ -1,4 +1,4 @@
- <%- if devise_mapping.omniauthable? && !user_signed_in?%>
+<%- if devise_mapping.omniauthable? && !user_signed_in?%>
         <%- resource_class.omniauth_providers.each do |provider| %>
         <%#= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), id: "sign_in" %>
         <%= link_to omniauth_authorize_path(resource_name,provider),id: "popup" do %>
