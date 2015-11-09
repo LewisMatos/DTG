@@ -1,9 +1,8 @@
 <br>
 <% if @shown_user && !@shown_user[1] %>
   
-  <h2 id="shown-user-name-tinder"> <%= @shown_user[0].name %> </h2>
-
-  <%= image_tag(@shown_user_image, :class =>"tinder_modal_image", :id => "tinder-modal-image") %>
+	<h2 id="shown-user-name-tinder"> <%= @shown_user[0].name %> </h2>
+			<%=image_tag(@shown_user_image, :class =>"tinder_modal_image", :id => "tinder-modal-image")%>
   <div class="work-now">
   <%= link_to image_tag("tinderX.jpg", :height => "50px"), "#", id: 'no' %>
   <%= link_to image_tag("tinderHeart.jpg", :height => "50px"), "#", id: 'yes' %><br>      
@@ -81,6 +80,10 @@
 .tinder_modal_image {
   display:block;
   margin: auto;
+height: 150px;
+    width: 150px; 
+		border-radius: 50%;
+		overflow:hidden;
 }
 
 #swipe-left {
@@ -123,5 +126,16 @@
                 transform: rotate(13deg) translate3d(100%, 0, 0);
         opacity: 0;
     }
+}
+#tinder-modal-image {
+    padding: 0;
+     -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -khtml-border-radius: 50%;  
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+border:5px solid yellow;
 }
 </style>
