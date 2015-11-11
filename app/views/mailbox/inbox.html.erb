@@ -3,10 +3,13 @@
 <% @inbox.each do |matches| %>
    <% @conversations = matches.messages %>
     <% @id = matches.id %>
-      <% #binding.pry %>
       <ul class="collapsible" data-collapsible="accordion" style="width:100%;">
           <li>
-            <div class="collapsible-header" style="height:100px;"><img src=<%= @conversations.first.sender.image %> style="width:100px;, height:100px;">   <%= @conversations.first.sender.name %>   </div>
+          <% @image = "/assets/"+(taginbox(@conversations.first).first.user_image) %>
+          <% @name = taginbox(@conversations.first).first.name %>
+          <% #binding.pry %>
+
+            <div class="collapsible-header" style="height:100px;"><img src="<%= @image %>" style="width:100px; height:100px;">   <%= @name %>   </div>
             <div class="collapsible-body" style="background-color:white;, height:100px;">
               <% @conversations.each do |convo| %>
                   <% @convo = convo %>

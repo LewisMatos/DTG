@@ -32,23 +32,11 @@ module ApplicationHelper
     current_user.name == user ? "from-me" : "from-them"
   end
 
-  def last_convo
-    Mailboxer::Conversation.count
+  def taginbox(conversation)
+    conversation.recipients.delete_if do |i|
+      i.name == current_user.name
+    end
   end
 
-  def last_notification
-    Mailboxer::Notification.count
-  end
-
-  def last_receipt
-    Mailboxer::Receipt.count
-  end
-
-
-  def open_conversation 
-    Mailboxer::Conversation.create!(subjects: "You've been matched")
-    Mailboxer::Notification.create!(type: "Mailboxer::Message", sender_id: 0, sender_type: "User", body: "You've been matched", subject: "You've been matched")
-    Mailboxer::Receipt.create!(mailbox_type: "inbox", receiver_id: user_id, notification_id: last_notification)
-  end
 
 end

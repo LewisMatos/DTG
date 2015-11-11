@@ -34,10 +34,10 @@ class UserEvent < ActiveRecord::Base
 
 
   def open_conversation 
-  Mailboxer::Conversation.create!(subject: "You've been matched")
-  Mailboxer::Notification.create!(type: "Mailboxer::Message", sender_id: user_id, sender_type: "User", body: "You've been matched", subject: "You've been matched", conversation_id: last_convo)
-  Mailboxer::Receipt.create!(mailbox_type: "inbox", receiver_id: shown_user_id, receiver_type: "User", is_read: "t", notification_id: last_notification)
-  Mailboxer::Receipt.create!(mailbox_type: "inbox", receiver_id: user_id, receiver_type: "User", is_read: "t", notification_id: last_notification)
+    Mailboxer::Conversation.create!(subject: "You've been matched")
+    Mailboxer::Notification.create!(type: "Mailboxer::Message", sender_id: user_id, sender_type: "User", body: "You've been matched", subject: "You've been matched", conversation_id: last_convo)
+    Mailboxer::Receipt.create!(mailbox_type: "inbox", receiver_id: shown_user_id, receiver_type: "User", is_read: "t", notification_id: last_notification)
+    Mailboxer::Receipt.create!(mailbox_type: "inbox", receiver_id: user_id, receiver_type: "User", is_read: "t", notification_id: last_notification)
   end
 
 
