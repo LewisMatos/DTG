@@ -33,6 +33,10 @@ body {
   padding-bottom: 30px;
 }
 
+a {
+  text-decoration: none !important;
+}
+
 .theme-dropdown .dropdown-menu {
   position: static;
   display: block;
