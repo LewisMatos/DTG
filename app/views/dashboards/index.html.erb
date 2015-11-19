@@ -301,12 +301,20 @@ a {
 }
 
 .btn.btn-facebook {
-    position: relative;
     color: #F7FAFF;
     text-indent: 35px;
     border-color: #263961;
     background-color: #4c70ba;
     background-image: linear-gradient(to bottom,transparent 0%,#3b5998 65%,#263961 100%);
+	 position: absolute;
+    text-align: center;
+    font-size: 10px;
+		position:fixed;
+    bottom:20%;
+    left:53%;
+    margin-left:-200px; /*negative half the width */
+
+
 }
 
 .btn.btn-facebook:before {
@@ -367,8 +375,8 @@ body.modal-open,.modal-open .navbar-fixed-top,.modal-open .navbar-fixed-bottom {
     border: 1px solid #999;
     border: 1px solid rgba(0,0,0,0.2);
     border-radius: 6px;
-    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,0.5);
-    box-shadow: 0 3px 9px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 3px 9px rgb(255, 208, 6);
+    box-shadow: 0 3px 9px rgb(255, 208, 6);
     background-clip: padding-box;
 }
 
@@ -404,6 +412,10 @@ body.modal-open,.modal-open .navbar-fixed-top,.modal-open .navbar-fixed-bottom {
     padding: 8px;
 }
 
+.modal-content {
+    -webkit-box-shadow: 0 0px 0px rgb(255, 208, 6);
+    box-shadow: 0 5px 15px rgb(255, 208, 6);;
+}
 .profile{
 	bottom:0;
 	top:0;
@@ -413,6 +425,8 @@ body.modal-open,.modal-open .navbar-fixed-top,.modal-open .navbar-fixed-bottom {
 }
 .profile.modal.fade.in{
 overflow-y: hidden;
+ -webkit-box-shadow: 0 5px 15px rgb(0, 0, 0);
+	background-color:transparent;
 }
 .profile.event-link{
 	background-color:transparent;
