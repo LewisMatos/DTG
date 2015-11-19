@@ -1,26 +1,26 @@
+<!-- tinder within modal -->
 <% if @shown_user && !@shown_user[1] %>
-  
 	<h2 id="shown-user-name-tinder"> <%=@shown_user[0].name%></h2>
 			<%=image_tag(@shown_user_image, :class =>"tinder_modal_image", :id => "tinder-modal-image")%>
-  <div class="work-now">
-  <%= link_to image_tag("tinderX.jpg", :height => "50px"), "#", id: 'no' %>
-  <%= link_to image_tag("tinderHeart.jpg", :height => "50px"), "#", id: 'yes' %><br>      
+  <div class="swiping_buttons">
+  <%= link_to image_tag("tinderX.jpg", id: "x-pic"), "#", id: 'no' %>
+  <%= link_to image_tag("tinderHeart.jpg", id: "heart-pic"), "#", id: 'yes' %><br>      
   </div>
   <br>  
-  <div class="tinder-bio">
+  <div class="tinder_bio">
     <h4><%=@shown_user[0].age%></h4> 
-    <h5 style="margin-top:-15px;"><%=@shown_user[0].bio%></h5>
+    <h5 id="tinder-bio"><%=@shown_user[0].bio%></h5>
   <div>
 <% elsif @shown_user %>
   <h2 id="shown-user-name-tinder">You matched with <%=@shown_user[0].name%>!</h2>
   <%= image_tag(@shown_user_image, :class =>"tinder_modal_image") %><br>	
 <% else %>
   <% @shown_user = [current_user] %>	
-	<p class="update-profile-to-cont" style="height:100%;"><%=@message%></p>
+	<p class="update_profile_to_cont" id="profile-message"><%=@message%></p>
 	<% if @no_profile %>
-	<p class="update-profile-to-cont">
+	<p class="update_profile_to_cont">
 	<a href="#" class="profile event-link event-image " id="#myModal_<%=current_user.id%>" data-target="#myModal_<%=current_user.id%>" data-toggle="modal"
-			><li class="update-profile-to-cont" id="cuatro"><span class="btn" style="background-color:yellow; color:black;">Profile </span></li></a>
+			><li class="update_profile_to_cont" id="cuatro"><span class="btn">Profile </span></li></a>
   
 		</p>
 <% end %>
@@ -60,102 +60,6 @@
   $('.btn').click(function(event){
     $(id='#myModal_<%=current_user.id%>').attr('title', event.target.parentNode.parentNode.parentNode.id);
   });
-
-</script>
-
-<style>
-.tinder-bio {
-  display: block;
-  text-align: center;
-  margin-left: 25%;
-  margin-right: 25%;
-  margin-top: -13px;
-}
-.update-profile-to-cont{
-  display:block;
-  margin:auto;
-  text-align:center;
-}
-#shown-user-name-tinder {
-  display:block;
-  margin:auto;
-  text-align: center;
-}
-.work-now{
-  display:block;
-  margin:auto;
-  text-align:center;
-  margin-top: 10px;
-  margin-bottom: -5px;
-}
-.tinder_modal_image {
-  display:block;
-  margin: auto;
-/*  height: 150px;
-    width: 150px; */
-		border-radius: 20%;
-    display:block;
-    margin:auto;
-    padding: 0;
-     -webkit-border-radius: 15%;
-    -moz-border-radius: 15%;
-    -khtml-border-radius: 15%;  
-    border-radius: 5%;
-    width: auto;
-    height: 300px;
-    border:3px black;
-}
+</script>  
 
 
-#swipe-left {
-    -webkit-animation: swipe-left 1s forwards;
-            animation: swipe-left 1s forwards;
-}
-
-#swipe-right {
-    -webkit-animation: swipe-right 1s forwards;
-            animation: swipe-right 1s forwards;
-}
-
-@-webkit-keyframes swipe-left {
-    to {
-        -webkit-transform: rotate(-13deg) translate3d(-100%, 0, 0);
-                transform: rotate(-13deg) translate3d(-100%, 0, 0);
-        opacity: 0;
-    }
-}
-
-@keyframes swipe-left {
-    to {
-        -webkit-transform: rotate(-13deg) translate3d(-100%, 0, 0);
-                transform: rotate(-13deg) translate3d(-100%, 0, 0);
-        opacity: 0;
-    }
-}
-
-@-webkit-keyframes swipe-right {
-    to {
-        -webkit-transform: rotate(13deg) translate3d(100%, 0, 0);
-                transform: rotate(13deg) translate3d(100%, 0, 0);
-        opacity: 0;
-    }
-}
-
-@keyframes swipe-right {
-    to {
-        -webkit-transform: rotate(13deg) translate3d(100%, 0, 0);
-                transform: rotate(13deg) translate3d(100%, 0, 0);
-        opacity: 0;
-    }
-}
-#tinder-modal-image {
-    padding: 0;
-     -webkit-border-radius: 15%;
-    -moz-border-radius: 15%;
-    -khtml-border-radius: 15%;  
-    border-radius: 5%;
-    width: auto;
-    height: 300px;
-    border:3px black;
-}
-</style>
