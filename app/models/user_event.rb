@@ -20,6 +20,7 @@ class UserEvent < ActiveRecord::Base
   end
 
 
+  # Helper methods for open_conversation method 
   def last_convo
     Mailboxer::Conversation.count
   end
@@ -32,7 +33,7 @@ class UserEvent < ActiveRecord::Base
     Mailboxer::Receipt.count
   end
 
-
+  # Creates the state of an open conversation between two users when a match is made. Method implemented in the before_do callback
   def open_conversation 
     Mailboxer::Conversation.create!(subject: "You've been matched")
     Mailboxer::Notification.create!(type: "Mailboxer::Message", sender_id: user_id, sender_type: "User", body: "You've been matched", subject: "You've been matched", conversation_id: last_convo)
