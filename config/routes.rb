@@ -14,6 +14,7 @@ devise_for :users, :controllers => { :omniauth_callbacks => "callbacks",:registr
   post '/events/pin-event' => 'events#pin_event'
   
   resources :users
+  get '/privacy' => "users#privacy"
   post "/userevents" => "userevents#create"
   get '/users/:id/events' => 'users#my_events'  
   get '/events/:id/pin_event' => 'events#pin_event'
