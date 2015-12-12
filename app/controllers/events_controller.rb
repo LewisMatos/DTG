@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-	before_action :auth_user
+	before_action :auth_user, except: [:notloggedin]
 	
 	# before_action :set_event, only: [:show, :edit, :update, :destroy]
   # GET /events
@@ -16,7 +16,10 @@ class EventsController < ApplicationController
     @events = Event.all.order('date')
     render :events_index, layout: false
   end
-
+  def notloggedin
+    binding.pry
+    render :not_logged_in
+  end
 
   # GET /events/1
   # GET /events/1.json

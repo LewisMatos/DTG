@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 
 devise_for :users, :controllers => { :omniauth_callbacks => "callbacks",:registrations => "registrations"  }
   
+  #get 'events/notloggedin' => 'events#notloggedin'
+  post 'events/notloggedin' => 'events#notloggedin'
+
   resources :events
 
   post '/events/pin-event' => 'events#pin_event'

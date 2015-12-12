@@ -545,6 +545,10 @@ button:focus {
     border: solid 1px #2A4E77;
     text-decoration: none;
 }
+#notloggedinmessage {
+    text-align: center;
+    margin-top: 8%;
+}
 
 </style>
 <div class="ct" id="t1">
@@ -558,7 +562,7 @@ button:focus {
           <ul>
             <a href="#t1"><li class="icon fa fa-home" id="uno"><span class="hint"> Home </span></li></a>
             <a href="#t2"><li class="icon fa fa-thumb-tack" id="dos"><span class="hint"> Events </span></li></a>
-            <a href="#t3"><li class="icon fa fa-comments" id="tres"><span class="hint"> Messages </span></li></a>	
+            <a href="#t3"><li class="icon fa fa-comments" id="tres"><span class="hint"> Messages </span></li></a>
 						<%= render 'profile_model' %>
 						<%= render 'devise/menu/login_items' %><br>
 					</ul>
@@ -584,6 +588,9 @@ button:focus {
               <button class="btn btn-success" id="my-events-all" style="display:inline-block; color:#666;">All Events</button>
               <button class="btn btn-success" id="my-events-mine" style="display:inline-block; color:#666;">My Events</button>
             </div>
+            <!-- renders message to log in on homepage -->
+            <%= render 'not_logged_in' unless current_user %>
+
             <div class="container-fluid" id="event-page-style">          
             </div>
           </div>  
@@ -596,7 +603,7 @@ button:focus {
           <div class="page" id="p3">
             <div class="inside">
               <div>
-                <iframe src="/mailbox/inbox.html" name="targetframe" allowTransparency="true" scrolling="no" frameborder="0" width="1400" height="800">
+                <iframe src="/mailbox/inbox.html" name="targetframe" allowTransparency="true" scrolling="no" frameborder="0" width="1400" height="800">                
                 </iframe>
               </div>
             </div>
