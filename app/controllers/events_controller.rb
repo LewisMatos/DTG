@@ -17,7 +17,6 @@ class EventsController < ApplicationController
     render :events_index, layout: false
   end
   def notloggedin
-    binding.pry
     render :not_logged_in
   end
 
