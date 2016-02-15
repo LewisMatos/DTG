@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
 	end
 
 	# this is a sequel query which will eliminate the users who have liked you, and you have also liked.
-  	# it will then filter out the same gender as you (should be change to reflect your sexual preference)
+  	# it will then filter out the same gender as you (should be changed to reflect your sexual preference)
   	# and will only find the users who have pinned this event.
 	def find_match(event)
 		sequel = %Q(
@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
 		User.find_by_sql(sequel)
 	end
 
-	# this query will filter out any user you have liked or disliked, and is opposite gender and pinned this event.
+	# this query will filter out any user you have liked or disliked, is of opposite gender, and pinned this event.
 	def eliminate_swiped_users(event)
 		sequel = %Q(
     		SELECT * FROM users WHERE users.id NOT IN
