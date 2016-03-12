@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
 		sequel = %Q(
 	    	select * from users where users.id in (select user_events.shown_user_id from user_events inner join user_events as shown_user_events on user_events.user_id = #{self.id} and shown_user_events.shown_user_id = #{self.id} and user_events.shown_user_id = shown_user_events.user_id where user_events.event_id = #{event.id} AND shown_user_events.event_id = #{event.id} and user_events.liked = 'yes' AND shown_user_events.liked = 'yes')
     	)
-		User.find_by_sql(sequel)
+		User.find_by_sql(sequel)   
 	end
 
 	# this query will filter out any user you have liked or disliked, is of opposite gender, and pinned this event.

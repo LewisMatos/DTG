@@ -241,7 +241,7 @@ Devise.setup do |config|
 # config.omniauth :facebook, "893566727379139", "4e07450ff1778312749fb1f64d687d92",:callback_url => 'http://localhost:3000/users/auth/facebook/callback/',info_fields: 'email,name,gender,bio,about,interested_in,cover',scope: 'user_birthday,user_photos',:display => "popup"
   # for heroku:
 	config.omniauth :facebook, "893566727379139", "4e07450ff1778312749fb1f64d687d92",:callback_url => 'https://downtogo.herokuapp.com/users/auth/facebook/callback/',info_fields: 'email,name,gender,bio,about,interested_in,cover',scope: 'user_birthday,user_photos',:display => "popup"
-
+  
 
 	# ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
