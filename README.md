@@ -4,7 +4,7 @@
 
 Flatiron School 3-week group project. 
 
-Our project is a rails application in which users can sign up with facebook and see current events happening in nyc. They can choose to pin events and try to match with other users to go on a date to that particular event.
+Our project is a rails application where users sign-in with facebook and see current events happening in NYC. After favoriting an event by 'pinning it,' a user is able to search for a date to that particular event. 
 
 ## Screenshots
 
@@ -23,11 +23,19 @@ Events - Custom events page that has built in tinder-like matching functionality
 
 ## Usage
 
-Users sign into out application through facebook.
+Users sign in to the application on the homepage using facebook.
 They have access to their events page and mailbox.
-Users can search through events and if they click on an event a modal popup appears with more information. Users can pin, or favorite, the event and are then presented with a tinder-like functionality to find someone to with whom to go.
+Users can search through events and if they click on an event a modal popup appears with more information. Users can pin (favorite) the event and are then presented with a tinder-like interface to find a date. 
+After matching, messaging is enabled, though currently requires a page-refresh.
 
-## Development/Contribution
+## Local Installation
+
+1. Clone the repo. 
+2. Ensure lines 240-244 of /config/initializers/devise.rb is configured for local. 
+3. Migrate and seed the db (creates dummy users who all 'like' you).
+4. Sign in with facebook on homepage, update your user profile, then view events and match!
+5. Messaging currently requires a page refresh to update. 
+
 
 ## Future
 
