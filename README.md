@@ -6,6 +6,8 @@ Flatiron School 3-week group project.
 
 Our project is a rails application where users sign-in with facebook and see current events happening in NYC. After favoriting an event by 'pinning it,' a user is able to search for a date to that particular event. 
 
+Tentatively live at: http://downtogo.herokuapp.com/
+
 ## Screenshots
 
 Presentation slides: https://docs.google.com/presentation/d/1jBRzPxzBQ5xWOo3ENKrRr4x6WnJfqaKpaEtYr_JtYPY/edit?usp=sharing
