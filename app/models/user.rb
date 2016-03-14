@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
     		SELECT * FROM users WHERE users.id NOT IN
     		(SELECT user_events.shown_user_id FROM user_events 
       		WHERE user_events.user_id = #{self.id} AND liked != 'nil' AND user_events.event_id = #{event.id})
-      		AND users.id IN (SELECT users.id FROM users WHERE users.gender = "#{self.interested_in}") AND users.id != #{self.id} AND users.id IN (SELECT user_events.user_id FROM user_events 
+      		AND users.id IN (SELECT users.id FROM users WHERE users.gender = '#{self.interested_in}') AND users.id != #{self.id} AND users.id IN (SELECT user_events.user_id FROM user_events 
      		WHERE user_events.event_id = #{event.id})
    		)
 		User.find_by_sql(sequel)
