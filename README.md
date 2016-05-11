@@ -4,7 +4,7 @@
 
 Flatiron School 3-week group project. 
 
-Our project is a rails application where users sign-in with facebook and see current events happening in NYC. After favoriting an event by 'pinning it,' a user is able to search for a date to that particular event. 
+Our project is a rails application where users sign-in with Facebook and see current events happening in NYC. User can pin/bookmark an event and search for a date to that particular event. 
 
 Tentatively live at: http://downtogo.herokuapp.com/
 
@@ -14,18 +14,18 @@ Presentation slides: https://docs.google.com/presentation/d/1jBRzPxzBQ5xWOo3ENKr
 
 ## Background
 
-We created this app because we because we wanted to be challeneged and create an unique and fun project.
+We created this app because we because we wanted to be challenged and create a unique and fun project.
 
 ## Features
 
 Built on Devise for security. Users only have access to certain areas depending on their permissions. 
 Omniauth Facebook. Users can sign in seamlessly.
 Inbox - built on mailer gem
-Events - Custom events page that has built in tinder-like matching functionality after favoriting the same event.
+Events - Custom events page that has built in tinder-like matching functionality after pinning the same event.
 
 ## Usage
 
-Users sign in to the application on the homepage using facebook.
+Users sign in to the application on the homepage using Facebook.
 They have access to their events page and mailbox.
 Users can search through events and if they click on an event a modal popup appears with more information. Users can pin (favorite) the event and are then presented with a tinder-like interface to find a date. 
 After matching, messaging is enabled, though currently requires a page-refresh.
